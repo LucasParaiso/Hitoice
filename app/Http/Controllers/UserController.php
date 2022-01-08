@@ -107,10 +107,15 @@ class UserController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('user.index');
+            $login['success'] = true;
+            echo json_encode($login);
+            return;
         }
 
-        return redirect()->back()->withInput()->withErrors(['Os dados informados não conferem!']);
+        $login['success'] = false;
+        $login['message'] = 'Os dados informados não conferem!';
+        echo json_encode($login);
+        return;
     }
 
     public function logout()

@@ -122,7 +122,11 @@ form input[type="submit"]:hover {
     background: linear-gradient(to right, #4776E6, #8e54e9);
 }
 
-#error {
+.d-none {
+    display: none;
+}
+
+.error {
     position: relative;
     padding: 1rem 1rem;
     margin-bottom: 1rem;
