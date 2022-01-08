@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="{{ url(mix('css/login.css')) }}">
     <style>
         main h2::before {
             width: 30px;

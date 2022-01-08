@@ -28,11 +28,31 @@ a {
     height: 25px;
     width: 25px;
 }
-* {
-    color: white;
+h1 {
+    text-align: center;
 }
 
-img {
-    height: 250px;
-    width: 250px;
+h2 {
+    color: aliceblue;
+    font-weight: normal;
+}
+
+h3 {
+    font-weight: normal;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+caption {
+    color: aliceblue;
+}
+
+#vidaFundo {
+    background-color: rgba(220, 53, 70, 0.2);
+}
+
+#despertadoFundo {
+    background-color: rgb(75, 0, 130, 0.2);
 }

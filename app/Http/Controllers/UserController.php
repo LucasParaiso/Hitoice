@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('user.dashboard');
+            return view('sheet.dashboard');
         }
 
         return redirect()->route('user.login');

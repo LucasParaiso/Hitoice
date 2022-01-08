@@ -25,3 +25,7 @@ Route::resource('/usuario', UserController::class)
     ->names('user')
     ->parameters(['' => 'user']);
 
+    
+Route::get('/ficha', function () { 
+    return view('sheet.ficha'); 
+})->name('sheet.ficha');
