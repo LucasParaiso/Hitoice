@@ -34,11 +34,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
-                <li class=" nav-item"><a class="nav-link" href="{{ route('user.index') }}">Lista de Personagens</a></li>
-                <li class=" nav-item"><a class="nav-link" href="{{ route('sheet.ficha') }}">Ficha</a></li>
+                <li class=" nav-item"><a class="nav-link" href="{{ route('sheet.index') }}">Lista de Personagens</a></li>
                 </ul>
                 <div>
-                    <a href="{{ route('user.logout') }}" class="btn btn-primary">Sair</a>
+                    @yield('sheetCreate')
+                    <a href="{{ route('user.logout') }}" class="btn btn-danger me-1">Sair</a>
                 </div>
             </div>
         </div>
@@ -52,11 +52,13 @@
     </footer>
 
 
-    <script src="{{ url(mix('js/jquery.js')) }}"></script>
     <script src="{{ url(mix('js/bootstrap.js')) }}"></script>
+    <script src="{{ url(mix('js/jquery.js')) }}"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    @yield('scripts')
 </body>
 
 </html>

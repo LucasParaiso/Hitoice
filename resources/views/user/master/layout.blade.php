@@ -54,7 +54,7 @@
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
-                            window.location.href = "{{ route('user.index') }}";
+                            window.location.href = "{{ route('sheet.index') }}";
                         } else {
                             $('.errorMessage').removeClass('d-none').html(response.message);
                         }

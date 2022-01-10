@@ -15,17 +15,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [FichaController::class, 'index']);
 
+Route::resource('/usuario', UserController::class) 
+    ->names('user')
+    ->parameters(['usuario' => 'user']);
 Route::get('/usuario/entrar', [UserController::class, 'showLoginForm'])->name('user.login');
 Route::get('/usuario/sair', [UserController::class, 'logout'])->name('user.logout');
 Route::post('/usuario/entrar/validacao', [UserController::class, 'login'])->name('user.login.do');
 
-Route::resource('/usuario', UserController::class) 
-    ->names('user')
-    ->parameters(['' => 'user']);
 
-    
-Route::get('/ficha', function () { 
-    return view('sheet.ficha'); 
-})->name('sheet.ficha');
+Route::get('/ficha/todas', [FichaController::class, 'showall'])->name('sheet.showall');
+Route::resource('/ficha', FichaController::class) 
+    ->names('sheet');

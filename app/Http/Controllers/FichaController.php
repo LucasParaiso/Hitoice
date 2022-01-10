@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ficha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FichaController extends Controller
 {
@@ -16,11 +17,10 @@ class FichaController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('dashboard');
+            return view('sheet.dashboard');
         }
 
-        return redirect()->route('admin');
-
+        return redirect()->route('user.login');
     }
 
     /**
@@ -41,7 +41,14 @@ class FichaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ficha = new Ficha();
+
+        $ficha->nome = $request->nomeDashboard;
+        $ficha->imagem_personagem = $request->imagemPersonagemDashboard;
+        $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
+
+        $ficha->save();
+        return;
     }
 
     /**
@@ -87,5 +94,18 @@ class FichaController extends Controller
     public function destroy(Ficha $ficha)
     {
         //
+    }
+
+    public function showall()
+    {
+        $fichas = DB::table('fichas')->get();
+
+        if ($fichas) {
+            $response['success'] = true;
+            $response['fichas'] = $fichas;
+        }
+
+        echo json_encode($response);
+        return;
     }
 }

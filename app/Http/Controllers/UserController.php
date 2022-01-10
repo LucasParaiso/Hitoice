@@ -16,11 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return view('sheet.dashboard');
-        }
-
-        return redirect()->route('user.login');
+        //
     }
 
     /**
@@ -46,7 +42,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('user.index');
+        return redirect()->route('sheet.index');
     }
 
     /**
@@ -122,6 +118,6 @@ class UserController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('user.index');
+        return redirect()->route('sheet.index');
     }
 }
