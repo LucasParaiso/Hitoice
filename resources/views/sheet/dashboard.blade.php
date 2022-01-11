@@ -8,7 +8,19 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 p-3 m-3 justify-content-center fundo" id="showSheets">
         @foreach($fichas as $ficha)
-            <p>{{ $ficha->nome }}</p>
+        <div class="col mb-4">
+            <div class="p-3 text-center fundo">
+                <a href="{{ route('sheet.show', ['ficha' => $ficha->id]) }}" class="mb-3">
+                    <div class="card bg-dark border-1 border-light">
+                        <img src="{{ $ficha->imagem_personagem }}" class="card-img-top img-fluid" alt="imagem_personagem">
+
+                        <div class="card-body">
+                            {{ $ficha->nome }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
         @endforeach
     </div>
 </div>
