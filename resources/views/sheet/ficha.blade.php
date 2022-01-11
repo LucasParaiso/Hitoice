@@ -69,9 +69,7 @@
                         </p>
                     </div>
                     <div class="progress" style="height: 25px;" id="despertadoFundo">
-                        <div class="progress-bar" role="progressbar" 
-                        style="{{ 'width: ' .  ($ficha->despertado_atual / $ficha->despertado_max) * 100 . '%;' }} background-color: indigo;"
-                         aria-valuenow="3" aria-valuemin="0" aria-valuemax="3"></div>
+                        <div class="progress-bar" role="progressbar" style="{{ 'width: ' .  ($ficha->despertado_atual / $ficha->despertado_max) * 100 . '%;' }} background-color: indigo;" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3"></div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-2 mb-3">
@@ -97,11 +95,15 @@
                     <h2 class="fs-2">Caminho da Katana</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">
-
+                <h3 class="fs-5" id="caminhoTitulo">
+                    @if ($caminho)
+                    {{ $caminho->titulo }}
+                    @endif
                 </h3>
-                <p>
-
+                <p id="caminhoDescricao">
+                    @if ($caminho)
+                    {{ $caminho->descricao }}
+                    @endif
                 </p>
             </div>
         </div>
@@ -117,7 +119,7 @@
 
                 </h3>
                 <p>
-                    
+
                 </p>
             </div>
         </div>
@@ -130,10 +132,10 @@
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
                 <h3 class="fs-5">
-                    
+
                 </h3>
                 <p>
-                    
+
                 </p>
             </div>
         </div>
@@ -299,19 +301,22 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form action="#" method="POST" id="caminhoModalForm">
+                <form id="caminhoModalForm">
+                    @csrf
                     <!-- CAMINHO -->
-                    <select class="col form-select bg-transparent text-center" style="color: white;">
-                        <option value="Humanos" style="color: black;">Humanos</option>
-                        <option value="Dobuu" style="color: black;">Dobuu</option>
-                        <option value="Minu" style="color: black;">Minu</option>
-                        <option value="Yin" style="color: black;">Yin</option>
-                        <option value="Yang" style="color: black;">Yang</option>
+                    <select class="col form-select bg-transparent text-center" style="color: white;" name="caminho_id">
+                        @foreach($caminhos as $caminho)
+                        <option value="{{ $caminho->id }}" style="color: black;"
+                        @if ($ficha->caminho_id == $caminho->id)
+                        selected
+                        @endif
+                        >{{ $caminho->titulo }}</option>
+                        @endforeach
                     </select>
                 </form>
             </div>
             <div class="modal-footer">
-                <input type="submit" value="Salvar" class="btn btn-primary" form="caminhoModalForm">
+                <input type="submit" value="Salvar" class="btn btn-primary" form="caminhoModalForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
     </div>
@@ -371,4 +376,23 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $('form[id="caminhoModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('sheet.caminho', ['ficha' => $ficha->id]) }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#caminhoTitulo').html(response.titulo)
+                $('#caminhoDescricao').html(response.descricao)
+            }
+        });
+    })
+</script>
 @endsection

@@ -65,8 +65,17 @@ class FichaController extends Controller
      */
     public function show(Ficha $ficha)
     {
+        $caminhos = DB::table('caminhos')->get();
+        $caminho = null;
+
+        if ($ficha->caminho_id) {
+            $caminho = DB::table('caminhos')->where('id', $ficha->caminho_id)->first();
+        }
+
         return view('sheet.ficha', [
-            'ficha' => $ficha
+            'ficha' => $ficha,
+            'caminhos' => $caminhos,
+            'caminho' => $caminho
         ]);
     }
 
@@ -102,5 +111,16 @@ class FichaController extends Controller
     public function destroy(Ficha $ficha)
     {
         //
+    }
+
+    public function caminho(Request $request, Ficha $ficha)
+    {
+        $ficha->caminho_id = $request->caminho_id;
+        $ficha->save();
+
+        $caminho = DB::table('caminhos')->where('id', $request->caminho_id)->first();
+
+        echo json_encode($caminho);
+        return;
     }
 }

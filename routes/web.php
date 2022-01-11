@@ -25,5 +25,6 @@ Route::resource('/usuario', UserController::class)
     ->parameters(['usuario' => 'user']);
 
 
+Route::post('/ficha/caminho/{ficha}', [FichaController::class, 'caminho'])->name('sheet.caminho');
 Route::resource('/ficha', FichaController::class) 
-    ->names('sheet');
+    ->names('sheet');   
