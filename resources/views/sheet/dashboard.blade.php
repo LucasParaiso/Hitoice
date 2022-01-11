@@ -7,6 +7,9 @@
 @section('content')
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 p-3 m-3 justify-content-center fundo" id="showSheets">
+        @foreach($fichas as $ficha)
+            <p>{{ $ficha->nome }}</p>
+        @endforeach
     </div>
 </div>
 @endsection
@@ -21,7 +24,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form id="personagemModalForm">
+                <form action="{{ route('sheet.store') }}" method="post" id="personagemModalForm">
                     @csrf
                     <!-- NOME -->
                     <label for="nomeDashboard" class="mb-1 fs-5">Nome</label>
@@ -46,50 +49,4 @@
 
 @section('sheetCreate')
 <button data-bs-toggle="modal" data-bs-target="#novoPersonagemModal" class="btn btn-primary me-2">Criar</button>
-@endsection
-
-@section('scripts')
-<script>
-    function showAll() {
-        $.ajax({
-            url: "{{ route('sheet.showall') }}",
-            type: "get",
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    console.log(response.fichas);
-                    let infos = response.fichas,
-                        content = "";
-
-                    for (i in infos) {
-                        content += "<p>" + infos[i].nome + "</p>";
-                    }
-
-                    console.log(content);
-                    $('#showSheets').html(content);
-                }
-            },
-            error: function(response) {
-                console.log(response.responseJSON.message);
-            }
-        });
-    }
-
-    $('body').ready(showAll());
-
-    $(function() {
-        $('form[id="personagemModalForm"]').submit(function(event) {
-            event.preventDefault();
-
-            $.ajax({
-                url: "{{ route('sheet.store') }}",
-                type: "post",
-                data: $(this).serialize(),
-                success: function(response) {
-                    showAll();
-                }
-            });
-        });
-    });
-</script>
 @endsection

@@ -17,7 +17,11 @@ class FichaController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('sheet.dashboard');
+            $fichas = DB::table('fichas')->get();
+
+            return view('sheet.dashboard', [
+                'fichas' => $fichas
+            ]);
         }
 
         return redirect()->route('user.login');
@@ -48,7 +52,7 @@ class FichaController extends Controller
         $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
 
         $ficha->save();
-        return;
+        return redirect()->route('sheet.index');
     }
 
     /**
@@ -94,18 +98,5 @@ class FichaController extends Controller
     public function destroy(Ficha $ficha)
     {
         //
-    }
-
-    public function showall()
-    {
-        $fichas = DB::table('fichas')->get();
-
-        if ($fichas) {
-            $response['success'] = true;
-            $response['fichas'] = $fichas;
-        }
-
-        echo json_encode($response);
-        return;
     }
 }

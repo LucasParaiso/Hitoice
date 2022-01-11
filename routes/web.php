@@ -25,6 +25,5 @@ Route::get('/usuario/sair', [UserController::class, 'logout'])->name('user.logou
 Route::post('/usuario/entrar/validacao', [UserController::class, 'login'])->name('user.login.do');
 
 
-Route::get('/ficha/todas', [FichaController::class, 'showall'])->name('sheet.showall');
 Route::resource('/ficha', FichaController::class) 
     ->names('sheet');

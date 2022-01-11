@@ -13,21 +13,21 @@ const mix = require('laravel-mix');
 
  mix
     .styles([
-        'resources/views/css/main.css',
-        'resources/views/css/dashboard.css'
+        'resources/css/main.css',
+        'resources/css/dashboard.css'
     ], 'public/css/dashboard.css')
 
     .styles([
-        'resources/views/css/main.css',
-        'resources/views/css/sheet.css'
+        'resources/css/main.css',
+        'resources/css/sheet.css'
     ], 'public/css/sheet.css')
 
-    .styles('resources/views/css/login.css', 'public/css/login.css')
+    .styles('resources/css/login.css', 'public/css/login.css')
 
     .scripts('node_modules/jquery/dist/jquery.js', 'public/js/jquery.js')
 
     .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/js/bootstrap.js')
 
-    .sass('resources/views/scss/style.scss', 'public/css/bootstrap.css')
+    .sass('resources/scss/style.scss', 'public/css/bootstrap.css')
 
     .version();
