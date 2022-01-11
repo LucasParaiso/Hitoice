@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ficha;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class FichaController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $fichas = DB::table('fichas')->get();
+            $fichas = User::where('id', Auth::id())->first()->fichas()->get();
 
             return view('sheet.dashboard', [
                 'fichas' => $fichas
@@ -48,6 +49,7 @@ class FichaController extends Controller
         $ficha = new Ficha();
 
         $ficha->nome = $request->nomeDashboard;
+        $ficha->user_id = Auth::id();
         $ficha->imagem_personagem = $request->imagemPersonagemDashboard;
         $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
 
@@ -63,7 +65,9 @@ class FichaController extends Controller
      */
     public function show(Ficha $ficha)
     {
-        //
+        return view('sheet.ficha', [
+            'ficha' => $ficha
+        ]);
     }
 
     /**

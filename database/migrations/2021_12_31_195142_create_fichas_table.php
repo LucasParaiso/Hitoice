@@ -15,6 +15,7 @@ class CreateFichasTable extends Migration
     {
         Schema::create('fichas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('nome');
             $table->integer('vida_atual')->default(10);

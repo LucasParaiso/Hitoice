@@ -6,7 +6,7 @@
 
 @section('content')
 <header class="my-5">
-    <h1>Nome Personagem</h1>
+    <h1>{{ $ficha->nome }}</h1>
 </header>
 
 <div class="container">
@@ -18,16 +18,14 @@
                 <div class="row">
                     <!-- PERSONAGEM -->
                     <picture class="col-6" data-bs-toggle="modal" data-bs-target="#personagemModal">
-                        <source height="250px" width="250px" media='(min-width: 1250px)' srcset="https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp">
-                        <img height="125px" width="125px" src="https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp" class='img-fluid
-                                    img-thumbnail rounded-circle mb-4' alt='FotoPersonagem'>
+                        <source height="250px" width="250px" media='(min-width: 1250px)' srcset="{{ $ficha->imagem_personagem }}">
+                        <img height="125px" width="125px" src="{{ $ficha->imagem_personagem }}" class='img-fluid img-thumbnail rounded-circle mb-4' alt='FotoPersonagem'>
                     </picture>
 
-                    <!-- PET -->
+                    <!-- MINI DRAGAO -->
                     <picture class="col-6" data-bs-toggle="modal" data-bs-target="#petModal">
-                        <source height="250px" width="250px" media='(min-width: 1250px)' class="grande" srcset="https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp">
-                        <img height="125px" width="125px" src="https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp" class='img-fluid
-                                    img-thumbnail rounded-circle mb-4' alt='FotoPersonagem'>
+                        <source height="250px" width="250px" media='(min-width: 1250px)' class="grande" srcset="{{ $ficha->imagem_dragao }}">
+                        <img height="125px" width="125px" src="{{ $ficha->imagem_dragao }}" class='img-fluid img-thumbnail rounded-circle mb-4' alt='FotoPersonagem'>
                     </picture>
                 </div>
 
@@ -39,11 +37,11 @@
                             <ion-icon name="create-outline" size="small" class="ms-1"></ion-icon>
                         </div>
                         <p class="col text-end ">
-                            10 / 10
+                            {{ $ficha->vida_atual . ' / ' . $ficha->vida_max }}
                         </p>
                     </div>
                     <div class="progress" style="height: 25px;" id="vidaFundo">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="10"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="{{ 'width: ' .  ($ficha->vida_atual / $ficha->vida_max) * 100 . '%;' }}" aria-valuenow="{{ $ficha->vida_atual }}" aria-valuemin="0" aria-valuemax="{{ $ficha->vida_max }}"></div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-2 mb-3">
@@ -67,11 +65,13 @@
                             <ion-icon name="create-outline" size="small" class="ms-1"></ion-icon>
                         </div>
                         <p class="col text-end ">
-                            3 / 3
+                            {{ $ficha->despertado_atual . ' / ' . $ficha->despertado_max }}
                         </p>
                     </div>
                     <div class="progress" style="height: 25px;" id="despertadoFundo">
-                        <div class="progress-bar" role="progressbar" style="width: 75%; background-color: indigo;" aria-valuenow="3" aria-valuemin="0" aria-valuemax="3"></div>
+                        <div class="progress-bar" role="progressbar" 
+                        style="{{ 'width: ' .  ($ficha->despertado_atual / $ficha->despertado_max) * 100 . '%;' }} background-color: indigo;"
+                         aria-valuenow="3" aria-valuemin="0" aria-valuemax="3"></div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-2 mb-3">
@@ -97,16 +97,11 @@
                     <h2 class="fs-2">Caminho da Katana</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">Roses</h3>
-                <p>As guerreiras Roses têm um estilo agressivo de manuseio, focando sempre em terminar o combate de
-                    modo rápido, por mais que percam muita precisão em seus golpes devido à alta concentração de
-                    força em seus músculos bem desenvolvidos.
-                    <br><br>
-                    <strong>O MANEJO DEVOTO:</strong> o estilo de combate das guerreiras Roses troca chance de
-                    acerto por dano bruto.
-                    <br><br>
-                    Receba permanentemente +1 de dano (somando-o à sua katana), mas todos os
-                    seus testes de combate receberão uma penalidade de -2.
+                <h3 class="fs-5">
+
+                </h3>
+                <p>
+
                 </p>
             </div>
         </div>
@@ -118,11 +113,12 @@
                     <h2 class="fs-2">Classe</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">Deus que se deleita</h3>
-                <p>Quando encerrar um combate, escolha um dos inimigos que derrotou. No próximo combate, você pode
-                    evocar essa alma (sem a necessidade de gastar uma ação ou realizar testes) para lutar ao seu
-                    lado. Esse efeito não é cumulativo e o inimigo só lutará ao seu lado uma única vez. Ao final do
-                    combate você o perde</p>
+                <h3 class="fs-5">
+
+                </h3>
+                <p>
+                    
+                </p>
             </div>
         </div>
 
@@ -133,19 +129,11 @@
                     <h2 class="fs-2">Herança dos Kami</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">Amaterasu, à Deusa do Sol</h3>
-                <p>A Deusa é caracterizada pelo elemento fogo. Seus seguidores devem, a partir de agora, SEMPRE
-                    aceitar a sugestão das almas durante a jornada das almas (Pág.154), independentemente de suas
-                    próprias vontades.
-                    <br><br>
-                    Aqueles que seguem o caminho de Amaterasu são reconhecidos por serem confiantes, amigáveis,
-                    animados e, acima de tudo, muito emocionais.
-                    <br><br>
-                    <strong>HABILIDADE DO KAMI DO FOGO:</strong> Totem de chamas (uso em combate): utilizando as
-                    chamas como suas
-                    amigas, é possível criar DOIS totens de fogo advindos de Amaterasu. Um deles não ataca, mas pode
-                    tomar 1 de dano no seu lugar (e ser destruído), e o outro pode causar 2 de dano a um inimigo
-                    escolhido.
+                <h3 class="fs-5">
+                    
+                </h3>
+                <p>
+                    
                 </p>
             </div>
         </div>
@@ -167,9 +155,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Katana</td>
-                            <td>2</td>
-                            <td>Fogo</td>
+                            <td>{{ $ficha->arma_nome }}</td>
+                            <td>{{ $ficha->arma_dano }}</td>
+                            <td>{{ $ficha->arma_elemento }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -185,8 +173,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Dragao</td>
-                            <td>Veneno</td>
+                            <td>{{ $ficha->dragao_nome }}</td>
+                            <td>{{ $ficha->dragao_elemento }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -206,16 +194,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Azul</td>
-                            <td>Forga</td>
-                        </tr>
-                        <tr>
-                            <td>Amarelo</td>
-                            <td>Qualquer</td>
-                        </tr>
-                        <tr>
-                            <td>Vermelho</td>
-                            <td>Vôo</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
