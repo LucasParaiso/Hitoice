@@ -139,8 +139,7 @@ class FichaController extends Controller
 
         $caminho = DB::table('caminhos')->where('id', $request->caminho_id)->first();
 
-        echo json_encode($caminho);
-        return;
+        return json_encode($caminho);
     }
 
     public function classe(Request $request, Ficha $ficha)
@@ -150,8 +149,7 @@ class FichaController extends Controller
 
         $classe = DB::table('classes')->where('id', $request->classe_id)->first();
 
-        echo json_encode($classe);
-        return;
+        return json_encode($classe);
     }
 
     public function heranca(Request $request, Ficha $ficha)
@@ -161,8 +159,7 @@ class FichaController extends Controller
 
         $heranca = DB::table('herancas')->where('id', $request->heranca_id)->first();
 
-        echo json_encode($heranca);
-        return;
+        return json_encode($heranca);
     }
 
     public function updatelife(Request $request, Ficha $ficha)
@@ -186,7 +183,57 @@ class FichaController extends Controller
             'vida_max' => $ficha->vida_max
         ];
 
-        echo json_encode($response);
-        return;
+        return json_encode($response);
+    }
+
+    public function updateawaken(Request $request, Ficha $ficha)
+    {
+        
+        if (str_contains($request->despertado_atual, '+') || str_contains($request->despertado_atual, '-')) {
+            $ficha->despertado_atual += $request->despertado_atual;
+        } else {
+            $ficha->despertado_atual = $request->despertado_atual;
+        }
+
+        if ($request->despertado_max !== null) {
+            $ficha->despertado_max = $request->despertado_max;
+
+        }
+
+        $ficha->save();
+
+        $response = [
+            'despertado_atual' => $ficha->despertado_atual,
+            'despertado_max' => $ficha->despertado_max
+        ];
+
+        return json_encode($response);
+    }
+
+    public function updateimage(Request $request, Ficha $ficha)
+    {
+        if ($request->imagem_personagem) {
+            $ficha->imagem_personagem = $request->imagem_personagem;
+            $ficha->save();
+            $response['imagem_personagem'] = $ficha->imagem_personagem;
+        } else if ($request->imagem_dragao) {
+            $ficha->imagem_dragao = $request->imagem_dragao;
+            $ficha->save();
+            $response['imagem_dragao'] = $ficha->imagem_dragao;
+        }
+
+        return redirect()->route('sheet.show', ['ficha' => $ficha->id]);
+    }
+
+    public function updatedragon(Request $request, Ficha $ficha)
+    {
+        $ficha->dragao_nome = $request->dragao_nome;
+        $ficha->dragao_elemento = $request->dragao_elemento;
+        $ficha->save();
+
+        $response['dragao_nome'] = $ficha->dragao_nome;
+        $response['dragao_elemento'] = $ficha->dragao_elemento;
+
+        return json_encode($response);
     }
 }
