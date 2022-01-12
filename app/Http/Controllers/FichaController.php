@@ -66,16 +66,35 @@ class FichaController extends Controller
     public function show(Ficha $ficha)
     {
         $caminhos = DB::table('caminhos')->get();
+        $classes = DB::table('classes')->get();
+        $herancas = DB::table('herancas')->get();
+
         $caminho = null;
+        $classe = null;
+        $heranca = null;
 
         if ($ficha->caminho_id) {
             $caminho = DB::table('caminhos')->where('id', $ficha->caminho_id)->first();
         }
 
+        if ($ficha->classe_id) {
+            $classe = DB::table('classes')->where('id', $ficha->classe_id)->first();
+        }
+
+        if ($ficha->heranca_id) {
+            $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
+        }
+        
         return view('sheet.ficha', [
             'ficha' => $ficha,
+
             'caminhos' => $caminhos,
-            'caminho' => $caminho
+            'classes' => $classes,
+            'herancas' => $herancas,
+
+            'caminho' => $caminho,
+            'classe' => $classe,
+            'heranca' => $heranca
         ]);
     }
 
@@ -121,6 +140,28 @@ class FichaController extends Controller
         $caminho = DB::table('caminhos')->where('id', $request->caminho_id)->first();
 
         echo json_encode($caminho);
+        return;
+    }
+
+    public function classe(Request $request, Ficha $ficha)
+    {
+        $ficha->classe_id = $request->classe_id;
+        $ficha->save();
+
+        $classe = DB::table('classes')->where('id', $request->classe_id)->first();
+
+        echo json_encode($classe);
+        return;
+    }
+
+    public function heranca(Request $request, Ficha $ficha)
+    {
+        $ficha->heranca_id = $request->heranca_id;
+        $ficha->save();
+
+        $heranca = DB::table('herancas')->where('id', $request->heranca_id)->first();
+
+        echo json_encode($heranca);
         return;
     }
 }

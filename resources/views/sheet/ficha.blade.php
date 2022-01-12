@@ -88,26 +88,6 @@
             </div>
         </div>
 
-        <!-- CAMINHO DA KATANA -->
-        <div class="col mb-3">
-            <div class='p-3 m-2 text-start fundo'>
-                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#caminhoModal" style="cursor: pointer;">
-                    <h2 class="fs-2">Caminho da Katana</h2>
-                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
-                </div>
-                <h3 class="fs-5" id="caminhoTitulo">
-                    @if ($caminho)
-                    {{ $caminho->titulo }}
-                    @endif
-                </h3>
-                <p id="caminhoDescricao">
-                    @if ($caminho)
-                    {{ $caminho->descricao }}
-                    @endif
-                </p>
-            </div>
-        </div>
-
         <!-- CLASSE -->
         <div class="col mb-3">
             <div class='p-3 m-2 text-start fundo'>
@@ -115,11 +95,15 @@
                     <h2 class="fs-2">Classe</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">
-
+                <h3 class="fs-4 mb-1" id="classeTitulo">
+                    @if ($ficha->classe_id)
+                    {{ $classes[$ficha->classe_id - 1]->titulo }}
+                    @endif
                 </h3>
-                <p>
-
+                <p id="classeDescricao">
+                    @if ($ficha->classe_id)
+                    {{ $classes[$ficha->classe_id - 1]->descricao }}
+                    @endif
                 </p>
             </div>
         </div>
@@ -131,11 +115,35 @@
                     <h2 class="fs-2">Herança dos Kami</h2>
                     <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
                 </div>
-                <h3 class="fs-5">
-
+                <h3 class="fs-4 mb-1" id="herancaTitulo">
+                    @if ($heranca)
+                    {{ $heranca->titulo }}
+                    @endif
                 </h3>
-                <p>
+                <p id="herancaDescricao">
+                    @if ($heranca)
+                    <?php echo $heranca->descricao; ?>
+                    @endif
+                </p>
+            </div>
+        </div>
 
+        <!-- CAMINHO DA KATANA -->
+        <div class="col mb-3">
+            <div class='p-3 m-2 text-start fundo'>
+                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#caminhoModal" style="cursor: pointer;">
+                    <h2 class="fs-2">Caminho da Katana</h2>
+                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
+                </div>
+                <h3 class="fs-4 mb-1" id="caminhoTitulo">
+                    @if ($caminho)
+                    {{ $caminho->titulo }}
+                    @endif
+                </h3>
+                <p id="caminhoDescricao">
+                    @if ($caminho)
+                    <?php echo $caminho->descricao; ?>
+                    @endif
                 </p>
             </div>
         </div>
@@ -306,11 +314,10 @@
                     <!-- CAMINHO -->
                     <select class="col form-select bg-transparent text-center" style="color: white;" name="caminho_id">
                         @foreach($caminhos as $caminho)
-                        <option value="{{ $caminho->id }}" style="color: black;"
-                        @if ($ficha->caminho_id == $caminho->id)
-                        selected
-                        @endif
-                        >{{ $caminho->titulo }}</option>
+                        <option value="{{ $caminho->id }}" style="color: black;" @if ($ficha->caminho_id == $caminho->id)
+                            selected
+                            @endif
+                            >{{ $caminho->titulo }}</option>
                         @endforeach
                     </select>
                 </form>
@@ -331,20 +338,21 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form action="#" method="POST" id="classeModalForm">
+                <form id="classeModalForm">
+                    @csrf
                     <!-- CLASSE -->
-                    <select class="col form-select bg-transparent text-center" style="color: white;">
-                        <option value="Deus com os olhos da morte" style="color: black;">Deus com os olhos da
-                            morte</option>
-                        <option value="Deus que transita" style="color: black;">Deus que transita</option>
-                        <option value="Deus empático" style="color: black;">Deus empático</option>
-                        <option value="Deus que cura" style="color: black;">Deus que cura</option>
-                        <option value="Deus que se deleita" style="color: black;">Deus que se deleita</option>
+                    <select class="col form-select bg-transparent text-center" style="color: white;" name="classe_id">
+                        @foreach($classes as $classe)
+                        <option value="{{ $classe->id }}" style="color: black;" @if ($ficha->classe_id == $classe->id)
+                            selected
+                            @endif
+                            >{{ $classe->titulo }}</option>
+                        @endforeach
                     </select>
                 </form>
             </div>
             <div class="modal-footer">
-                <input type="submit" value="Salvar" class="btn btn-primary" form="classeModalForm">
+                <input type="submit" value="Salvar" class="btn btn-primary" form="classeModalForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
     </div>
@@ -359,19 +367,18 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form action="#" method="POST" id="herancaModalForm">
+                <form id="herancaModalForm">
+                    @csrf
                     <!-- HERANCA -->
-                    <select class="col form-select bg-transparent text-center" style="color: white;">
-                        <option value="Amaterasu" style="color: black;">Amaterasu</option>
-                        <option value="Raijin" style="color: black;">Raijin</option>
-                        <option value="Fuuvin" style="color: black;">Fuuvin</option>
-                        <option value="Tsukuyomi" style="color: black;">Tsukuyomi</option>
-                        <option value="Susanoo" style="color: black;">Susanoo</option>
+                    <select class="col form-select bg-transparent text-center" style="color: white;" name="heranca_id">
+                        @foreach($herancas as $heranca)
+                        <option value="{{ $heranca->id }}" style="color: black;">{{ $heranca->titulo }}</option>
+                        @endforeach
                     </select>
                 </form>
             </div>
             <div class="modal-footer">
-                <input type="submit" value="Salvar" class="btn btn-primary" form="herancaModalForm">
+                <input type="submit" value="Salvar" class="btn btn-primary" form="herancaModalForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
     </div>
@@ -391,6 +398,36 @@
             success: function(response) {
                 $('#caminhoTitulo').html(response.titulo)
                 $('#caminhoDescricao').html(response.descricao)
+            }
+        });
+    })
+
+    $('form[id="classeModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('sheet.classe', ['ficha' => $ficha->id]) }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#classeTitulo').html(response.titulo)
+                $('#classeDescricao').html(response.descricao)
+            }
+        });
+    })
+
+    $('form[id="herancaModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('sheet.heranca', ['ficha' => $ficha->id]) }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#herancaTitulo').html(response.titulo)
+                $('#herancaDescricao').html(response.descricao)
             }
         });
     })
