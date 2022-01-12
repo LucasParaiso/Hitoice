@@ -28,5 +28,6 @@ Route::resource('/usuario', UserController::class)
 Route::post('/ficha/caminho/{ficha}', [FichaController::class, 'caminho'])->name('sheet.caminho');
 Route::post('/ficha/classe/{ficha}', [FichaController::class, 'classe'])->name('sheet.classe');
 Route::post('/ficha/heranca/{ficha}', [FichaController::class, 'heranca'])->name('sheet.heranca');
+Route::post('/ficha/vida/{ficha}', [FichaController::class, 'updatelife'])->name('sheet.updatelife');
 Route::resource('/ficha', FichaController::class) 
     ->names('sheet');   

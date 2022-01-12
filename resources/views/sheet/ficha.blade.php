@@ -36,23 +36,27 @@
                             <p>VIDA</p>
                             <ion-icon name="create-outline" size="small" class="ms-1"></ion-icon>
                         </div>
-                        <p class="col text-end ">
+                        <p class="col text-end " id="vidaValue">
                             {{ $ficha->vida_atual . ' / ' . $ficha->vida_max }}
                         </p>
                     </div>
                     <div class="progress" style="height: 25px;" id="vidaFundo">
-                        <div class="progress-bar bg-danger" role="progressbar" style="{{ 'width: ' .  ($ficha->vida_atual / $ficha->vida_max) * 100 . '%;' }}" aria-valuenow="{{ $ficha->vida_atual }}" aria-valuemin="0" aria-valuemax="{{ $ficha->vida_max }}"></div>
+                        <div class="progress-bar bg-danger" id="vidaProgress" role="progressbar" style="width:{{ ($ficha->vida_atual / $ficha->vida_max) * 100 }}%"></div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-2 mb-3">
                     <div class="text-start d-flex">
-                        <form action="#" method="POST">
+                        <form name="vidaForm">
+                            @csrf
+                            <input type="text" name="vida_atual" id="vida_atual" value="-1" hidden>
                             <input type="submit" value="-1" class="bg-transparent border border-1 border-light rounded">
                         </form>
                     </div>
                     <div class="text-end d-flex">
-                        <form action="#" method="POST">
-                            <input type="submit" value="+1" class="bg-transparent border border-1 border-light rounded ms-2">
+                        <form name="vidaForm">
+                            @csrf
+                            <input type="text" name="vida_atual" id="vida_atual" value="+1" hidden>
+                            <input type="submit" value="+1" class="bg-transparent border border-1 border-light rounded">
                         </form>
                     </div>
                 </div>
@@ -225,32 +229,31 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="vidaModalForm">
-                    <div class="row row-cols-1 text-start">
-                        <!-- VIDA ATUAL -->
-                        <div class="col mb-3">
-                            <div class="row justify-content-between">
-                                <label class="col col-form-label" for="vida_atual">Vida Atual: </label>
-                                <div class="col">
-                                    <input required class="form-control bg-transparent text-center" type="text" style="color: white;">
-                                </div>
+                <form id="vidaModalForm" name="vidaForm" class="row row-cols-1 text-start">
+                    @csrf
+                    <!-- VIDA ATUAL -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="vida_atual">Vida Atual: </label>
+                            <div class="col">
+                                <input required class="form-control bg-transparent text-center" type="text" style="color: white;" name="vida_atual" value="{{ $ficha->vida_atual }}">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- VIDA MAXIMA -->
-                        <div class="col">
-                            <div class="row justify-content-between">
-                                <label class="col col-form-label" for="vida_max">Vida Máxima: </label>
-                                <div class="col">
-                                    <input required class="form-control bg-transparent text-center" type="text" style="color: white;">
-                                </div>
+                    <!-- VIDA MAXIMA -->
+                    <div class="col">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="vida_max">Vida Máxima: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="vida_max" value="{{ $ficha->vida_max }}">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <input type="submit" value="Atualizar Vida" class="btn btn-primary" form="vidaModalForm">
+                <input type="submit" value="Atualizar Vida" class="btn btn-primary" form="vidaModalForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
     </div>
@@ -428,6 +431,24 @@
             success: function(response) {
                 $('#herancaTitulo').html(response.titulo)
                 $('#herancaDescricao').html(response.descricao)
+            }
+        });
+    })
+
+    $('form[name="vidaForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('sheet.updatelife', ['ficha' => $ficha->id]) }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                let vidaValue = response.vida_atual + ' / ' + response.vida_max
+                $('#vidaValue').html(vidaValue);
+
+                let vidaProgress = ((response.vida_atual / response.vida_max) * 100) + '%'
+                $('#vidaProgress').width(vidaProgress)
             }
         });
     })

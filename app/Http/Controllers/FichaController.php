@@ -164,4 +164,29 @@ class FichaController extends Controller
         echo json_encode($heranca);
         return;
     }
+
+    public function updatelife(Request $request, Ficha $ficha)
+    {
+        
+        if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
+            $ficha->vida_atual += $request->vida_atual;
+        } else {
+            $ficha->vida_atual = $request->vida_atual;
+        }
+
+        if ($request->vida_max !== null) {
+            $ficha->vida_max = $request->vida_max;
+
+        }
+
+        $ficha->save();
+
+        $response = [
+            'vida_atual' => $ficha->vida_atual,
+            'vida_max' => $ficha->vida_max
+        ];
+
+        echo json_encode($response);
+        return;
+    }
 }
