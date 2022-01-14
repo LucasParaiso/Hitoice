@@ -62,7 +62,7 @@
                 </div>
 
                 <!-- DESPERTADO -->
-                <div data-bs-toggle="modal" data-bs-target="#despertadoModal" style="cursor: pointer;">
+                <div>
                     <div class="mb-1 d-flex">
                         <div class="d-flex text-start ms-1">
                             <p>MODO DESPERTADO</p>
@@ -220,7 +220,7 @@
                     </thead>
                     <tbody id="almasTable">
                         @foreach($almas as $alma)
-                        <tr>
+                        <tr id="{{ 'almaDelete' . $alma->id }}">
                             <td data-bs-toggle="modal" data-bs-target="#almaModalUpdate" data-bs-alma="{{ $alma->id }}" data-bs-tipo="{{ $alma->tipo }}" data-bs-propriedade="{{ $alma->propriedade }}" style="cursor: pointer;" class="d-flex justify-content-center" id="{{ 'data-bs' . $alma->id }}">
                                 <p id="{{ 'tipo' . $alma->id }}">{{ $alma->tipo }}</p>
                                 <ion-icon class="ms-1" name="create-outline" size="small"></ion-icon>
@@ -287,6 +287,7 @@
             <div class="modal-body text-start">
                 <form id="personagemModalForm" action="{{ route('sheet.updateimage', ['ficha' => $ficha->id]) }}" method="post">
                     @csrf
+                    @method('put')
                     <!-- FOTO PERSONAGEM -->
                     <label for="imagem_personagem" class="mb-1 fs-5">Link</label>
                     <input name="imagem_personagem" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -310,6 +311,7 @@
             <div class="modal-body text-start">
                 <form id="dragaoModalForm" action="{{ route('sheet.updateimage', ['ficha' => $ficha->id]) }}" method="post">
                     @csrf
+                    @method('put')
                     <!-- FOTO DRAGAO -->
                     <label for="imagem_dragao" class="mb-1 fs-5">Link</label>
                     <input name="imagem_dragao" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -587,7 +589,13 @@
                     <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="alma_id" id="alma_id" hidden>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-between">
+                <form id="almaModalDeleteForm">
+                    @csrf
+                    @method('delete')
+                    <input type="text" name="alma_id_delete" id="alma_id_delete" hidden>
+                    <input type="submit" value="Excluir" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+                </form>
                 <input type="submit" value="Atualizar Alma" class="btn btn-primary" form="almaModalUpdateForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
@@ -605,10 +613,12 @@
         let propriedade = trigger.getAttribute("data-bs-propriedade");
 
         let almaId = almaModalUpdate.querySelector("#alma_id");
+        let almaDelete = almaModalUpdate.querySelector("#alma_id_delete");
         let almaTipo = almaModalUpdate.querySelector("#tipo");
         let almaPropriedade = almaModalUpdate.querySelector("#propriedade");
 
         almaId.value = id;
+        almaDelete.value = id;
         almaTipo.value = tipo;
         almaPropriedade.value = propriedade;
     });
@@ -735,7 +745,7 @@
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
-                $('#almasTable').append("<tr><td>" + response.tipo + "</td><td>" + response.propriedade + "</td></tr>");
+                $('#almasTable').append("<tr><td data-bs-toggle='modal' data-bs-target='#almaModalUpdate' data-bs-alma='" + response.alma_id + "' data-bs-tipo='" + response.tipo + "' data-bs-propriedade='" + response.propriedade + "' style='cursor: pointer;' class='d-flex justify-content-center' id='data-bs" + response.alma_id + "'><p id='tipo" + response.alma_id + "'>" + response.tipo + "</p><ion-icon class='ms-1' name='create-outline' size='small'></ion-icon></td><td id='propriedade" + response.alma_id + "'>" + response.propriedade + "</td></tr>");
             }
         });
     })
@@ -754,6 +764,20 @@
 
                 $('#tipo' + response.alma_id).html(response.tipo)
                 $('#propriedade' + response.alma_id).html(response.propriedade)
+            }
+        });
+    })
+
+    $('form[id="almaModalDeleteForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('soul.delete') }}",
+            type: "delete",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $("#almaDelete" + response.alma_id).html("");
             }
         });
     })

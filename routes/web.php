@@ -40,3 +40,4 @@ Route::resource('/ficha', FichaController::class)
 
 Route::post('/ficha/alma', [AlmaController::class, 'store'])->name('soul.store');
 Route::put('/ficha/alma/atualizar', [AlmaController::class, 'update'])->name('soul.update');
+Route::delete('/ficha/alma/deletar', [AlmaController::class, 'destroy'])->name('soul.delete');
