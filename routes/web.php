@@ -32,5 +32,6 @@ Route::post('/ficha/vida/{ficha}', [FichaController::class, 'updatelife'])->name
 Route::post('/ficha/despertado/{ficha}', [FichaController::class, 'updateawaken'])->name('sheet.updateawaken');
 Route::post('/ficha/imagem/{ficha}', [FichaController::class, 'updateimage'])->name('sheet.updateimage');
 Route::post('/ficha/dragao/{ficha}', [FichaController::class, 'updatedragon'])->name('sheet.updatedragon');
+Route::post('/ficha/arma/{ficha}', [FichaController::class, 'updatearma'])->name('sheet.updatearma');
 Route::resource('/ficha', FichaController::class) 
     ->names('sheet');   

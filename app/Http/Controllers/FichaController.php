@@ -84,7 +84,7 @@ class FichaController extends Controller
         if ($ficha->heranca_id) {
             $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
         }
-        
+
         return view('sheet.ficha', [
             'ficha' => $ficha,
 
@@ -164,7 +164,7 @@ class FichaController extends Controller
 
     public function updatelife(Request $request, Ficha $ficha)
     {
-        
+
         if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
             $ficha->vida_atual += $request->vida_atual;
         } else {
@@ -173,7 +173,6 @@ class FichaController extends Controller
 
         if ($request->vida_max !== null) {
             $ficha->vida_max = $request->vida_max;
-
         }
 
         $ficha->save();
@@ -188,7 +187,7 @@ class FichaController extends Controller
 
     public function updateawaken(Request $request, Ficha $ficha)
     {
-        
+
         if (str_contains($request->despertado_atual, '+') || str_contains($request->despertado_atual, '-')) {
             $ficha->despertado_atual += $request->despertado_atual;
         } else {
@@ -197,7 +196,6 @@ class FichaController extends Controller
 
         if ($request->despertado_max !== null) {
             $ficha->despertado_max = $request->despertado_max;
-
         }
 
         $ficha->save();
@@ -233,6 +231,20 @@ class FichaController extends Controller
 
         $response['dragao_nome'] = $ficha->dragao_nome;
         $response['dragao_elemento'] = $ficha->dragao_elemento;
+
+        return json_encode($response);
+    }
+
+    public function updatearma(Request $request, Ficha $ficha)
+    {
+        $ficha->arma_nome = $request->arma_nome;
+        $ficha->arma_dano = $request->arma_dano;
+        $ficha->arma_elemento = $request->arma_elemento;
+        $ficha->save();
+
+        $response['arma_nome'] = $ficha->arma_nome;
+        $response['arma_dano'] = $ficha->arma_dano;
+        $response['arma_elemento'] = $ficha->arma_elemento;
 
         return json_encode($response);
     }

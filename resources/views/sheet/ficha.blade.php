@@ -162,7 +162,10 @@
 
                 <!-- ARMAS -->
                 <table class="table caption-top mb-5">
-                    <caption>Arma</caption>
+                    <caption data-bs-toggle="modal" data-bs-target="#armaModal" style="cursor: pointer;">
+                        Arma
+                        <ion-icon name="create-outline" size="small"></ion-icon>
+                    </caption>
                     <thead class="border-bottom border-2">
                         <tr>
                             <th scope="col">Nome</th>
@@ -172,19 +175,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $ficha->arma_nome }}</td>
-                            <td>{{ $ficha->arma_dano }}</td>
-                            <td>{{ $ficha->arma_elemento }}</td>
+                            <td id="arma_nome">{{ $ficha->arma_nome }}</td>
+                            <td id="arma_dano">{{ $ficha->arma_dano }}</td>
+                            <td id="arma_elemento">{{ $ficha->arma_elemento }}</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <!-- MINI DRAGAO -->
                 <table class="table caption-top">
-                        <caption data-bs-toggle="modal" data-bs-target="#dragaoModalDetail" style="cursor: pointer;">
-                            Mini Dragão
-                            <ion-icon name="create-outline" size="small"></ion-icon>
-                        </caption>
+                    <caption data-bs-toggle="modal" data-bs-target="#dragaoModalDetail" style="cursor: pointer;">
+                        Mini Dragão
+                        <ion-icon name="create-outline" size="small"></ion-icon>
+                    </caption>
                     <thead class="border-bottom border-2">
                         <tr>
                             <th scope="col">Nome</th>
@@ -395,7 +398,7 @@
     </div>
 </div>
 
-<!-- DRAGAO MODAL -->
+<!-- DRAGAO MODAL DETAIL -->
 <div class="modal fade" id="dragaoModalDetail" tabindex="-1" aria-labelledby="dragaoModalDetailLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark">
@@ -422,15 +425,14 @@
                             <label class="col col-form-label" for="dragao_elemento">Elemento: </label>
                             <div class="col">
                                 <select class="col form-select bg-transparent text-center" style="color: white;" name="dragao_elemento">
-                                <?php $elementos = array(1 => "Fogo", 2 => "Água", 3 => "Vento", 4 => "Terra", 5 => "Raio") ?>
+                                    <?php $elementos = array(1 => "Fogo", 2 => "Água", 3 => "Vento", 4 => "Terra", 5 => "Raio") ?>
 
-                                @foreach($elementos as $elemento)
-                                    <option value="{{ $elemento }}" style="color: black;"
-                                    @if ($ficha->dragao_elemento == $elemento)
-                                    selected
-                                    @endif
-                                    >{{ $elemento }}</option>
-                                @endforeach
+                                    @foreach($elementos as $elemento)
+                                    <option value="{{ $elemento }}" style="color: black;" @if ($ficha->dragao_elemento == $elemento)
+                                        selected
+                                        @endif
+                                        >{{ $elemento }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -439,6 +441,62 @@
             </div>
             <div class="modal-footer">
                 <input type="submit" value="Atualizar Mini Dragão" class="btn btn-primary" form="dragaoModalDetailsForm" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DRAGAO MODAL DETAIL -->
+<div class="modal fade" id="armaModal" tabindex="-1" aria-labelledby="armaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="armaModalLabel">Atualizar Arma</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="armaModalForm" class="row row-cols-1 text-start">
+                    @csrf
+                    <!-- ARMA NOME -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="arma_nome">Nome: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="arma_nome" value="{{ $ficha->arma_nome }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ARMA DANO -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="arma_dano">Dano: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="arma_dano" value="{{ $ficha->arma_dano }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ELEMENTO -->
+                    <div class="col">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="arma_elemento">Elemento: </label>
+                            <div class="col">
+                                <select class="col form-select bg-transparent text-center" style="color: white;" name="arma_elemento">
+                                    @foreach($elementos as $elemento)
+                                    <option value="{{ $elemento }}" style="color: black;" @if ($ficha->arma_elemento == $elemento)
+                                        selected
+                                        @endif
+                                        >{{ $elemento }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Atualizar Arma" class="btn btn-primary" form="armaModalForm" data-bs-dismiss="modal" aria-label="Close">
             </div>
         </div>
     </div>
@@ -539,6 +597,22 @@
             success: function(response) {
                 $('#dragao_nome').html(response.dragao_nome);
                 $('#dragao_elemento').html(response.dragao_elemento);
+            }
+        });
+    })
+
+    $('form[id="armaModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('sheet.updatearma', ['ficha' => $ficha->id]) }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#arma_nome').html(response.arma_nome);
+                $('#arma_dano').html(response.arma_dano);
+                $('#arma_elemento').html(response.arma_elemento);
             }
         });
     })
