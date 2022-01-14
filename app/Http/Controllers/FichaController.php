@@ -85,8 +85,11 @@ class FichaController extends Controller
             $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
         }
 
+        $almas = $ficha->almas()->get();
+
         return view('sheet.ficha', [
             'ficha' => $ficha,
+            'almas' => $almas,
 
             'caminhos' => $caminhos,
             'classes' => $classes,

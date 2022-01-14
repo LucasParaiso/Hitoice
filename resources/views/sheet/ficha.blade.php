@@ -207,7 +207,10 @@
         <!-- ALMAS -->
         <div class="col mb-3">
             <div class='p-3 m-2 fundo'>
-                <h2 class="fs-2 p-3 mb-3">Almas</h2>
+                <div class="d-flex p-3 mb-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#almaModalCreate" style="cursor: pointer;">
+                    <h2 class="fs-2">Almas</h2>
+                    <ion-icon name="add-outline" size="large"></ion-icon>
+                </div>
                 <table class="table caption-top">
                     <thead class="border-bottom border-2">
                         <tr>
@@ -215,11 +218,16 @@
                             <th scope="col">Propriedade</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="almasTable">
+                        @foreach($almas as $alma)
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td data-bs-toggle="modal" data-bs-target="#almaModalUpdate" data-bs-alma="{{ $alma->id }}" data-bs-tipo="{{ $alma->tipo }}" data-bs-propriedade="{{ $alma->propriedade }}" style="cursor: pointer;" class="d-flex justify-content-center" id="{{ 'data-bs' . $alma->id }}">
+                                <p id="{{ 'tipo' . $alma->id }}">{{ $alma->tipo }}</p>
+                                <ion-icon class="ms-1" name="create-outline" size="small"></ion-icon>
+                            </td>
+                            <td id="{{ 'propriedade' . $alma->id }}">{{ $alma->propriedade }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -501,16 +509,117 @@
         </div>
     </div>
 </div>
+
+<!-- ALMA MODAL CREATE -->
+<div class="modal fade" id="almaModalCreate" tabindex="-1" aria-labelledby="almaModalCreateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="almaModalCreateLabel">Criar Alma</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="almaModalCreateForm" class="row row-cols-1 text-start">
+                    @csrf
+                    <!-- ALMA TIPO -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="tipo">Tipo: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="tipo" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALMA PROPRIEDADE -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="propriedade">Propriedade: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="propriedade" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FICHA ID -->
+                    <input type="text" name="ficha_id" id="ficha_id" value="{{ $ficha->id }}" hidden>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Criar Alma" class="btn btn-primary" form="almaModalCreateForm" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ALMA MODAL UPDATE -->
+<div class="modal fade" id="almaModalUpdate" tabindex="-1" aria-labelledby="almaModalUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="almaModalUpdateLabel">Atualizar Alma</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="almaModalUpdateForm" class="row row-cols-1 text-start">
+                    @csrf
+                    <!-- ALMA TIPO -->
+                    <div class="col mb-3">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="tipo">Tipo: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="tipo" id="tipo" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALMA PROPRIEDADE -->
+                    <div class="col">
+                        <div class="row justify-content-between">
+                            <label class="col col-form-label" for="propriedade">Propriedade: </label>
+                            <div class="col">
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="propriedade" id="propriedade" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALMA ID -->
+                    <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="alma_id" id="alma_id" hidden>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Atualizar Alma" class="btn btn-primary" form="almaModalUpdateForm" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
+<script>
+    let almaModalUpdate = document.getElementById("almaModalUpdate");
+    almaModalUpdate.addEventListener("show.bs.modal", function(event) {
+        let trigger = event.relatedTarget;
+        let id = trigger.getAttribute("data-bs-alma");
+        let tipo = trigger.getAttribute("data-bs-tipo");
+        let propriedade = trigger.getAttribute("data-bs-propriedade");
+
+        let almaId = almaModalUpdate.querySelector("#alma_id");
+        let almaTipo = almaModalUpdate.querySelector("#tipo");
+        let almaPropriedade = almaModalUpdate.querySelector("#propriedade");
+
+        almaId.value = id;
+        almaTipo.value = tipo;
+        almaPropriedade.value = propriedade;
+    });
+</script>
 <script>
     $('form[id="caminhoModalForm"]').submit(function(event) {
         event.preventDefault();
 
         $.ajax({
             url: "{{ route('sheet.caminho', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -525,7 +634,7 @@
 
         $.ajax({
             url: "{{ route('sheet.classe', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -540,7 +649,7 @@
 
         $.ajax({
             url: "{{ route('sheet.heranca', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -555,7 +664,7 @@
 
         $.ajax({
             url: "{{ route('sheet.updatelife', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -573,7 +682,7 @@
 
         $.ajax({
             url: "{{ route('sheet.updateawaken', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -591,7 +700,7 @@
 
         $.ajax({
             url: "{{ route('sheet.updatedragon', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
@@ -606,13 +715,45 @@
 
         $.ajax({
             url: "{{ route('sheet.updatearma', ['ficha' => $ficha->id]) }}",
-            type: "post",
+            type: "put",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
                 $('#arma_nome').html(response.arma_nome);
                 $('#arma_dano').html(response.arma_dano);
                 $('#arma_elemento').html(response.arma_elemento);
+            }
+        });
+    })
+
+    $('form[id="almaModalCreateForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('soul.store') }}",
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#almasTable').append("<tr><td>" + response.tipo + "</td><td>" + response.propriedade + "</td></tr>");
+            }
+        });
+    })
+
+    $('form[id="almaModalUpdateForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('soul.update') }}",
+            type: "put",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                $('#data-bs' + response.alma_id).attr('data-bs-tipo', response.tipo)
+                $('#data-bs' + response.alma_id).attr('data-bs-propriedade', response.propriedade)
+
+                $('#tipo' + response.alma_id).html(response.tipo)
+                $('#propriedade' + response.alma_id).html(response.propriedade)
             }
         });
     })

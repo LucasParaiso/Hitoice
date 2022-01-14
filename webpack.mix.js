@@ -28,6 +28,8 @@ const mix = require('laravel-mix');
 
     .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/js/bootstrap.js')
 
+    .scripts('resources/js/app.js', 'public/js/app.js')
+
     .sass('resources/scss/style.scss', 'public/css/bootstrap.css')
 
     .version();

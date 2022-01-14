@@ -10,4 +10,9 @@ class Ficha extends Model
     use HasFactory;
 
     protected $table = 'fichas';
+
+    public function almas()
+    {
+        return $this->hasMany(Alma::class, 'ficha_id', 'id');
+    }
 }
