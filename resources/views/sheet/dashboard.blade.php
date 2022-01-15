@@ -52,11 +52,11 @@
 
                     <!-- IMAGEM PERSONAGEM -->
                     <label for="imagemPersonagemDashboard" class="mb-1 fs-5">Imagem do Personagem</label>
-                    <input type="text" class="form-control mb-3 bg-transparent" style="color: white;" id="imagemPersonagemDashboard" name="imagemPersonagemDashboard" required>
+                    <input type="text" class="form-control mb-3 bg-transparent" style="color: white;" id="imagemPersonagemDashboard" name="imagemPersonagemDashboard">
 
                     <!-- IMAGEM MINI DRAGAO -->
                     <label for="imagemMiniDragaoDashboard" class="mb-1 fs-5">Imagem do Mini Dragão</label>
-                    <input type="text" class="form-control mb-1 bg-transparent" style="color: white;" id="imagemMiniDragaoDashboard" name="imagemMiniDragaoDashboard" required>
+                    <input type="text" class="form-control mb-1 bg-transparent" style="color: white;" id="imagemMiniDragaoDashboard" name="imagemMiniDragaoDashboard">
                 </form>
             </div>
             <div class="modal-footer">

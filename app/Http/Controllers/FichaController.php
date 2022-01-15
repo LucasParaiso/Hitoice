@@ -41,8 +41,14 @@ class FichaController extends Controller
 
         $ficha->nome = $request->nomeDashboard;
         $ficha->user_id = Auth::id();
-        $ficha->imagem_personagem = $request->imagemPersonagemDashboard;
-        $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
+        
+        if ($request->imagemPersonagemDashboard) {
+            $ficha->imagem_personagem = $request->imagemPersonagemDashboard;
+        }
+
+        if ($request->imagemMiniDragaoDashboard) {
+            $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
+        }
 
         $ficha->save();
         return redirect()->route('user.index');

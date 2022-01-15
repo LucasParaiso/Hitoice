@@ -22,8 +22,8 @@ class CreateFichasTable extends Migration
             $table->integer('vida_max')->default(10);
             $table->integer('despertado_atual')->default(3);
             $table->integer('despertado_max')->default(3);
-            $table->string('imagem_personagem');
-            $table->string('imagem_dragao');
+            $table->string('imagem_personagem')->default('/img/Hitodama.jpg');
+            $table->string('imagem_dragao')->default('/img/Hitodama.jpg');
             
             $table->foreignId('caminho_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('classe_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
