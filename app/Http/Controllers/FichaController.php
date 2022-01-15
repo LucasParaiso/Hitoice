@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ficha;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,15 +16,7 @@ class FichaController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            $fichas = User::where('id', Auth::id())->first()->fichas()->get();
-
-            return view('sheet.dashboard', [
-                'fichas' => $fichas
-            ]);
-        }
-
-        return redirect()->route('user.login');
+        //
     }
 
     /**
@@ -54,7 +45,7 @@ class FichaController extends Controller
         $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
 
         $ficha->save();
-        return redirect()->route('sheet.index');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -65,40 +56,44 @@ class FichaController extends Controller
      */
     public function show(Ficha $ficha)
     {
-        $caminhos = DB::table('caminhos')->get();
-        $classes = DB::table('classes')->get();
-        $herancas = DB::table('herancas')->get();
+        if (Auth::check()) {
+            $caminhos = DB::table('caminhos')->get();
+            $classes = DB::table('classes')->get();
+            $herancas = DB::table('herancas')->get();
 
-        $caminho = null;
-        $classe = null;
-        $heranca = null;
+            $caminho = null;
+            $classe = null;
+            $heranca = null;
 
-        if ($ficha->caminho_id) {
-            $caminho = DB::table('caminhos')->where('id', $ficha->caminho_id)->first();
+            if ($ficha->caminho_id) {
+                $caminho = DB::table('caminhos')->where('id', $ficha->caminho_id)->first();
+            }
+
+            if ($ficha->classe_id) {
+                $classe = DB::table('classes')->where('id', $ficha->classe_id)->first();
+            }
+
+            if ($ficha->heranca_id) {
+                $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
+            }
+
+            $almas = $ficha->almas()->get();
+
+            return view('sheet.ficha', [
+                'ficha' => $ficha,
+                'almas' => $almas,
+
+                'caminhos' => $caminhos,
+                'classes' => $classes,
+                'herancas' => $herancas,
+
+                'caminho' => $caminho,
+                'classe' => $classe,
+                'heranca' => $heranca
+            ]);
         }
 
-        if ($ficha->classe_id) {
-            $classe = DB::table('classes')->where('id', $ficha->classe_id)->first();
-        }
-
-        if ($ficha->heranca_id) {
-            $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
-        }
-
-        $almas = $ficha->almas()->get();
-
-        return view('sheet.ficha', [
-            'ficha' => $ficha,
-            'almas' => $almas,
-
-            'caminhos' => $caminhos,
-            'classes' => $classes,
-            'herancas' => $herancas,
-
-            'caminho' => $caminho,
-            'classe' => $classe,
-            'heranca' => $heranca
-        ]);
+        return redirect()->route('user.login');
     }
 
     /**
@@ -130,9 +125,10 @@ class FichaController extends Controller
      * @param  \App\Models\Ficha  $ficha
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ficha $ficha)
+    public function destroy(Request $request)
     {
-        //
+        Ficha::where('id', $request->ficha_id)->first()->delete();
+        return redirect()->route('user.index');
     }
 
     public function caminho(Request $request, Ficha $ficha)

@@ -34,7 +34,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
-                <li class=" nav-item"><a class="nav-link" href="{{ route('sheet.index') }}">Lista de Personagens</a></li>
+                <li class=" nav-item"><a class="nav-link" href="{{ route('user.index') }}">Lista de Personagens</a></li>
                 </ul>
                 <div>
                     @yield('sheetCreate')

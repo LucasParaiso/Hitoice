@@ -8,14 +8,22 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 p-3 m-3 justify-content-center fundo" id="showSheets">
         @foreach($fichas as $ficha)
-        <div class="col mb-4">
+        <div class="col mb-4" id="{{ 'ficha' . $ficha->id }}">
             <div class="p-3 text-center fundo">
                 <a href="{{ route('sheet.show', ['ficha' => $ficha->id]) }}" class="mb-3">
                     <div class="card bg-dark border-1 border-light">
                         <img src="{{ $ficha->imagem_personagem }}" class="card-img-top img-fluid" alt="imagem_personagem">
 
                         <div class="card-body">
-                            {{ $ficha->nome }}
+                            <p>{{ $ficha->nome }}</p>
+                            @if (Auth::user()->role_as == 'admin')
+                            <form class="mt-2" action="{{ route('sheet.destroy', ['ficha' => $ficha->id]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <input type="text" name="ficha_id" id="ficha_id" value="{{ $ficha->id }}" hidden>
+                                <input class="btn btn-danger" type="submit" value="Excluir">
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </a>
@@ -61,4 +69,10 @@
 
 @section('sheetCreate')
 <button data-bs-toggle="modal" data-bs-target="#novoPersonagemModal" class="btn btn-primary me-2">Criar</button>
+@endsection
+
+@section('scripts')
+<script>
+    
+</script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ficha;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            if (Auth::user()->role_as == 'admin') {
+                $fichas = Ficha::all()->sortBy('nome');
+            } else {
+                $fichas = User::where('id', Auth::id())->first()->fichas()->get();                
+            }
+            return view('sheet.dashboard', [
+                'fichas' => $fichas
+            ]);
+        }
+
+        return redirect()->route('user.login');
     }
 
     /**
@@ -42,7 +54,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('sheet.index');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -104,20 +116,18 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $login['success'] = true;
-            echo json_encode($login);
-            return;
+            return json_encode($login);
         }
 
         $login['success'] = false;
         $login['message'] = 'Os dados informados não conferem!';
-        echo json_encode($login);
-        return;
+        return json_encode($login);
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('sheet.index');
+        return redirect()->route('user.index');
     }
 }

@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [FichaController::class, 'index']);
+Route::get('/', [UserController::class, 'index']);
 
 Route::get('/usuario/entrar', [UserController::class, 'showLoginForm'])->name('user.login');
 Route::get('/usuario/sair', [UserController::class, 'logout'])->name('user.logout');

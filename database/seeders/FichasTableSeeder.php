@@ -32,7 +32,7 @@ class FichasTableSeeder extends Seeder
                 'nome' => 'PARAISO',
                 'imagem_personagem' => 'https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp',
                 'imagem_dragao' => 'https://cdn.discordapp.com/attachments/763432460570329150/919605211901878292/jaimerdinger.webp',
-            ],
+            ]
         ]);
     }
 }
