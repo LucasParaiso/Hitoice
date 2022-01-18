@@ -49,14 +49,14 @@
                         <form name="vidaForm">
                             @csrf
                             <input type="text" name="vida_atual" id="vida_atual" value="-1" hidden>
-                            <input type="submit" value="-1" class="bg-transparent border border-1 border-light rounded">
+                            <input type="submit" value="-1" class="btn btn-outline-light p-1 shadow-none">
                         </form>
                     </div>
                     <div class="text-end d-flex">
                         <form name="vidaForm">
                             @csrf
                             <input type="text" name="vida_atual" id="vida_atual" value="+1" hidden>
-                            <input type="submit" value="+1" class="bg-transparent border border-1 border-light rounded">
+                            <input type="submit" value="+1" class="btn btn-outline-light p-1 shadow-none">
                         </form>
                     </div>
                 </div>
@@ -80,14 +80,14 @@
                         <form name="despertadoForm">
                             @csrf
                             <input type="text" name="despertado_atual" id="despertado_atual" value="-1" hidden>
-                            <input type="submit" value="-1" class="bg-transparent border border-1 border-light rounded">
+                            <input type="submit" value="-1" class="btn btn-outline-light p-1 shadow-none">
                         </form>
                     </div>
                     <div class="text-end d-flex">
                         <form name="despertadoForm">
                             @csrf
                             <input type="text" name="despertado_atual" id="despertado_atual" value="+1" hidden>
-                            <input type="submit" value="+1" class="bg-transparent border border-1 border-light rounded">
+                            <input type="submit" value="+1" class="btn btn-outline-light p-1 shadow-none">
                         </form>
                     </div>
                 </div>
