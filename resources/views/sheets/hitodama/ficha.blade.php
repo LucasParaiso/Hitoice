@@ -1,4 +1,4 @@
-@extends('hitodama.master.layout')
+@extends('sheets.master.layout')
 
 @section('css')
 <link rel="stylesheet" href="{{ url(mix('css/sheet.css')) }}">

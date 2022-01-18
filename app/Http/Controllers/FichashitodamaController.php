@@ -43,7 +43,9 @@ class FichashitodamaController extends Controller
         $fichashitodama->user_id = $request->userDashboard;
 
         $fichashitodama->save();
-        return redirect()->route('user.index');
+
+        $response['success'] = true;
+        return json_encode($response);
     }
 
     /**
@@ -77,7 +79,7 @@ class FichashitodamaController extends Controller
 
             $almas = $fichashitodama->almas()->get();
 
-            return view('hitodama.ficha', [
+            return view('sheets.hitodama.ficha', [
                 'ficha' => $fichashitodama,
                 'almas' => $almas,
 

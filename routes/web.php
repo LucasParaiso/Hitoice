@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmaController;
+use App\Http\Controllers\FichasgenericasController;
 use App\Http\Controllers\FichashitodamaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,7 @@ Route::resource('/usuario', UserController::class)
     ->names('user')
     ->parameters(['usuario' => 'user']);
 
-
+// FICHA HITODAMA
 Route::put('/hitodama/caminho/{fichashitodama}', [FichashitodamaController::class, 'caminho'])->name('hitodama.caminho');
 Route::put('/hitodama/classe/{fichashitodama}', [FichashitodamaController::class, 'classe'])->name('hitodama.classe');
 Route::put('/hitodama/heranca/{fichashitodama}', [FichashitodamaController::class, 'heranca'])->name('hitodama.heranca');
@@ -39,7 +40,11 @@ Route::resource('/hitodama', FichashitodamaController::class)
     ->names('hitodama')
     ->parameters(['hitodama' => 'fichashitodama']);
 
+Route::post('/hitodama/alma', [AlmaController::class, 'store'])->name('hitodama.soul.store');
+Route::put('/hitodama/alma/atualizar', [AlmaController::class, 'update'])->name('hitodama.soul.update');
+Route::delete('/hitodama/alma/deletar', [AlmaController::class, 'destroy'])->name('hitodama.soul.delete');
 
-Route::post('/ficha/alma', [AlmaController::class, 'store'])->name('hitodama.soul.store');
-Route::put('/ficha/alma/atualizar', [AlmaController::class, 'update'])->name('hitodama.soul.update');
-Route::delete('/ficha/alma/deletar', [AlmaController::class, 'destroy'])->name('hitodama.soul.delete');
+// FICHA GENERICA
+Route::resource('/generica', FichasgenericasController::class)
+    ->names('generica')
+    ->parameters(['generica' => 'fichasgenerica']);

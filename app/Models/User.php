@@ -42,8 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function fichas()
+    public function fichashitodama()
     {
         return $this->hasMany(Fichashitodama::class, 'user_id', 'id');
+    }
+
+    public function fichasgenerica()
+    {
+        return $this->hasMany(fichasgenericas::class, 'user_id', 'id');
     }
 }
