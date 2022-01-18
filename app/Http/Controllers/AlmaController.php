@@ -16,7 +16,7 @@ class AlmaController extends Controller
     public function store(Request $request)
     {
         $alma = new Alma();
-        $alma->ficha_id = $request->ficha_id;
+        $alma->fichashitodama_id = $request->fichashitodama_id;
         $alma->tipo = $request->tipo;
         $alma->propriedade = $request->propriedade;
         $alma->save();

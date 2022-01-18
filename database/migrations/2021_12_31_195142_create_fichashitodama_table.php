@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFichasTable extends Migration
+class CreateFichashitodamaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFichasTable extends Migration
      */
     public function up()
     {
-        Schema::create('fichas', function (Blueprint $table) {
+        Schema::create('fichashitodama', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
 
@@ -47,6 +47,6 @@ class CreateFichasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fichas');
+        Schema::dropIfExists('fichashitodama');
     }
 }

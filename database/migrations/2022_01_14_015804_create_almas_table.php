@@ -15,12 +15,13 @@ class CreateAlmasTable extends Migration
     {
         Schema::create('almas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ficha_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('fichashitodama_id');
             
             $table->string('tipo');
             $table->string('propriedade');
 
             $table->timestamps();
+            $table->foreign('fichashitodama_id')->references('id')->on('fichashitodama')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -1,4 +1,4 @@
-@extends('sheet.master.layout')
+@extends('hitodama.master.layout')
 
 @section('css')
 <link rel="stylesheet" href="{{ url(mix('css/dashboard.css')) }}">
@@ -13,7 +13,6 @@
                 <a href="{{ route('sheet.show', ['ficha' => $ficha->id]) }}" class="mb-3">
                     <div class="card bg-dark border-1 border-light">
                         <img src="{{ $ficha->imagem_personagem }}" class="card-img-top img-fluid" alt="imagem_personagem">
-
                         <div class="card-body">
                             <p>{{ $ficha->nome }}</p>
                             @if (Auth::user()->role_as == 'admin')
@@ -55,7 +54,17 @@
 
                     <!-- IMAGEM MINI DRAGAO -->
                     <label for="imagemMiniDragaoDashboard" class="mb-1 fs-5">Imagem do Mini Dragão</label>
-                    <input type="text" class="form-control mb-1 bg-transparent" style="color: white;" id="imagemMiniDragaoDashboard" name="imagemMiniDragaoDashboard">
+                    <input type="text" class="form-control mb-3 bg-transparent" style="color: white;" id="imagemMiniDragaoDashboard" name="imagemMiniDragaoDashboard">
+
+                    @if (Auth::user()->role_as == 'admin')
+                    <label for="tipoFichaDashboard" class="fs-5">Ficha</label>
+                    <select name="tipoFichaDashboard" id="tipoFichaDashboard" class="col form-select bg-transparent text-center" style="color: white;">
+                        <option value="hitodama" style="color: black;">Hitodama</option>
+                        <option value="eternos" style="color: black;">Eternos</option>
+                        <option value="tormenta" style="color: black;">Tormenta</option>
+                        <option value="generica" style="color: black;">Genérica</option>
+                    </select>
+                    @endif
                 </form>
             </div>
             <div class="modal-footer">

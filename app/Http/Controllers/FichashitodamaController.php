@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ficha;
+use App\Models\Fichashitodama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class FichaController extends Controller
+class FichashitodamaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +37,7 @@ class FichaController extends Controller
      */
     public function store(Request $request)
     {
-        $ficha = new Ficha();
+        $ficha = new Fichashitodama();
 
         $ficha->nome = $request->nomeDashboard;
         $ficha->user_id = Auth::id();
@@ -60,7 +60,7 @@ class FichaController extends Controller
      * @param  \App\Models\Ficha  $ficha
      * @return \Illuminate\Http\Response
      */
-    public function show(Ficha $ficha)
+    public function show(Fichashitodama $ficha)
     {
         if (Auth::check()) {
             $caminhos = DB::table('caminhos')->get();
@@ -85,7 +85,7 @@ class FichaController extends Controller
 
             $almas = $ficha->almas()->get();
 
-            return view('sheet.ficha', [
+            return view('hitodama.ficha', [
                 'ficha' => $ficha,
                 'almas' => $almas,
 
@@ -108,7 +108,7 @@ class FichaController extends Controller
      * @param  \App\Models\Ficha  $ficha
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ficha $ficha)
+    public function edit(Fichashitodama $ficha)
     {
         //
     }
@@ -120,7 +120,7 @@ class FichaController extends Controller
      * @param  \App\Models\Ficha  $ficha
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ficha $ficha)
+    public function update(Request $request, Fichashitodama $ficha)
     {
         //
     }
@@ -133,11 +133,11 @@ class FichaController extends Controller
      */
     public function destroy(Request $request)
     {
-        Ficha::where('id', $request->ficha_id)->first()->delete();
+        Fichashitodama::where('id', $request->ficha_id)->first()->delete();
         return redirect()->route('user.index');
     }
 
-    public function caminho(Request $request, Ficha $ficha)
+    public function caminho(Request $request, Fichashitodama $ficha)
     {
         $ficha->caminho_id = $request->caminho_id;
         $ficha->save();
@@ -147,7 +147,7 @@ class FichaController extends Controller
         return json_encode($caminho);
     }
 
-    public function classe(Request $request, Ficha $ficha)
+    public function classe(Request $request, Fichashitodama $ficha)
     {
         $ficha->classe_id = $request->classe_id;
         $ficha->save();
@@ -157,7 +157,7 @@ class FichaController extends Controller
         return json_encode($classe);
     }
 
-    public function heranca(Request $request, Ficha $ficha)
+    public function heranca(Request $request, Fichashitodama $ficha)
     {
         $ficha->heranca_id = $request->heranca_id;
         $ficha->save();
@@ -167,7 +167,7 @@ class FichaController extends Controller
         return json_encode($heranca);
     }
 
-    public function updatelife(Request $request, Ficha $ficha)
+    public function updatelife(Request $request, Fichashitodama $ficha)
     {
 
         if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
@@ -190,7 +190,7 @@ class FichaController extends Controller
         return json_encode($response);
     }
 
-    public function updateawaken(Request $request, Ficha $ficha)
+    public function updateawaken(Request $request, Fichashitodama $ficha)
     {
 
         if (str_contains($request->despertado_atual, '+') || str_contains($request->despertado_atual, '-')) {
@@ -213,7 +213,7 @@ class FichaController extends Controller
         return json_encode($response);
     }
 
-    public function updateimage(Request $request, Ficha $ficha)
+    public function updateimage(Request $request, Fichashitodama $ficha)
     {
         if ($request->imagem_personagem) {
             $ficha->imagem_personagem = $request->imagem_personagem;
@@ -228,7 +228,7 @@ class FichaController extends Controller
         return redirect()->route('sheet.show', ['ficha' => $ficha->id]);
     }
 
-    public function updatedragon(Request $request, Ficha $ficha)
+    public function updatedragon(Request $request, Fichashitodama $ficha)
     {
         $ficha->dragao_nome = $request->dragao_nome;
         $ficha->dragao_elemento = $request->dragao_elemento;
@@ -240,7 +240,7 @@ class FichaController extends Controller
         return json_encode($response);
     }
 
-    public function updatearma(Request $request, Ficha $ficha)
+    public function updatearma(Request $request, Fichashitodama $ficha)
     {
         $ficha->arma_nome = $request->arma_nome;
         $ficha->arma_dano = $request->arma_dano;

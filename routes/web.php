@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmaController;
-use App\Http\Controllers\FichaController;
+use App\Http\Controllers\FichashitodamaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -26,15 +26,15 @@ Route::resource('/usuario', UserController::class)
     ->parameters(['usuario' => 'user']);
 
 
-Route::put('/ficha/caminho/{ficha}', [FichaController::class, 'caminho'])->name('sheet.caminho');
-Route::put('/ficha/classe/{ficha}', [FichaController::class, 'classe'])->name('sheet.classe');
-Route::put('/ficha/heranca/{ficha}', [FichaController::class, 'heranca'])->name('sheet.heranca');
-Route::put('/ficha/vida/{ficha}', [FichaController::class, 'updatelife'])->name('sheet.updatelife');
-Route::put('/ficha/despertado/{ficha}', [FichaController::class, 'updateawaken'])->name('sheet.updateawaken');
-Route::put('/ficha/imagem/{ficha}', [FichaController::class, 'updateimage'])->name('sheet.updateimage');
-Route::put('/ficha/dragao/{ficha}', [FichaController::class, 'updatedragon'])->name('sheet.updatedragon');
-Route::put('/ficha/arma/{ficha}', [FichaController::class, 'updatearma'])->name('sheet.updatearma');
-Route::resource('/ficha', FichaController::class)
+Route::put('/ficha/caminho/{ficha}', [FichashitodamaController::class, 'caminho'])->name('sheet.caminho');
+Route::put('/ficha/classe/{ficha}', [FichashitodamaController::class, 'classe'])->name('sheet.classe');
+Route::put('/ficha/heranca/{ficha}', [FichashitodamaController::class, 'heranca'])->name('sheet.heranca');
+Route::put('/ficha/vida/{ficha}', [FichashitodamaController::class, 'updatelife'])->name('sheet.updatelife');
+Route::put('/ficha/despertado/{ficha}', [FichashitodamaController::class, 'updateawaken'])->name('sheet.updateawaken');
+Route::put('/ficha/imagem/{ficha}', [FichashitodamaController::class, 'updateimage'])->name('sheet.updateimage');
+Route::put('/ficha/dragao/{ficha}', [FichashitodamaController::class, 'updatedragon'])->name('sheet.updatedragon');
+Route::put('/ficha/arma/{ficha}', [FichashitodamaController::class, 'updatearma'])->name('sheet.updatearma');
+Route::resource('/ficha', FichashitodamaController::class)
     ->names('sheet');
 
 

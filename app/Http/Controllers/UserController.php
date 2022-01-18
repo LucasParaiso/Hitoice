@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ficha;
+use App\Models\Fichashitodama;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +19,11 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->role_as == 'admin') {
-                $fichas = Ficha::all()->sortBy('nome');
+                $fichas = Fichashitodama::all()->sortBy('nome');
             } else {
                 $fichas = User::where('id', Auth::id())->first()->fichas()->get();                
             }
-            return view('sheet.dashboard', [
+            return view('hitodama.dashboard', [
                 'fichas' => $fichas
             ]);
         }

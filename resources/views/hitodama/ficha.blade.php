@@ -1,4 +1,4 @@
-@extends('sheet.master.layout')
+@extends('hitodama.master.layout')
 
 @section('css')
 <link rel="stylesheet" href="{{ url(mix('css/sheet.css')) }}">
@@ -544,7 +544,7 @@
                     </div>
 
                     <!-- FICHA ID -->
-                    <input type="text" name="ficha_id" id="ficha_id" value="{{ $ficha->id }}" hidden>
+                    <input type="text" name="fichashitodama_id" id="fichashitodama_id" value="{{ $ficha->id }}" hidden>
                 </form>
             </div>
             <div class="modal-footer">
@@ -745,7 +745,7 @@
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
-                $('#almasTable').append("<tr><td data-bs-toggle='modal' data-bs-target='#almaModalUpdate' data-bs-alma='" + response.alma_id + "' data-bs-tipo='" + response.tipo + "' data-bs-propriedade='" + response.propriedade + "' style='cursor: pointer;' class='d-flex justify-content-center' id='data-bs" + response.alma_id + "'><p id='tipo" + response.alma_id + "'>" + response.tipo + "</p><ion-icon class='ms-1' name='create-outline' size='small'></ion-icon></td><td id='propriedade" + response.alma_id + "'>" + response.propriedade + "</td></tr>");
+                $('#almasTable').append("<tr id='almaDelete" + response.alma_id + "'><td data-bs-toggle='modal' data-bs-target='#almaModalUpdate' data-bs-alma='" + response.alma_id + "' data-bs-tipo='" + response.tipo + "' data-bs-propriedade='" + response.propriedade + "' style='cursor: pointer;' class='d-flex justify-content-center' id='data-bs" + response.alma_id + "'><p id='tipo" + response.alma_id + "'>" + response.tipo + "</p><ion-icon class='ms-1' name='create-outline' size='small'></ion-icon></td><td id='propriedade" + response.alma_id + "'>" + response.propriedade + "</td></tr>')")
             }
         });
     })

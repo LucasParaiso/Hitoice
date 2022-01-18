@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function fichas()
     {
-        return $this->hasMany(Ficha::class, 'user_id', 'id');
+        return $this->hasMany(Fichashitodama::class, 'user_id', 'id');
     }
 }
