@@ -23,7 +23,12 @@
 </head>
 
 <body class='text-center'>
-    <nav class="mb-5 navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar bg-none">
+        <div class="container-fluid">
+            <p class="navbar-brand">Hito-Ice</p>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="">
                 <img src="/img/Hitodama.png" alt="logo_hitoice" id="logo" class="d-inline-block align-text-top">

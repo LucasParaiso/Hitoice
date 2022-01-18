@@ -17,12 +17,7 @@
                         <div class="card-body">
                             <p>{{ $ficha->nome }}</p>
                             @if (Auth::user()->role_as == 'admin')
-                            <form class="mt-2" action="{{ route('sheet.destroy', ['ficha' => $ficha->id]) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <input type="text" name="ficha_id" id="ficha_id" value="{{ $ficha->id }}" hidden>
-                                <input class="btn btn-danger" type="submit" value="Excluir">
-                            </form>
+                            <a class="btn btn-danger mt-2" data-bs-ficha-id="{{ $ficha->id }}" data-bs-toggle="modal" data-bs-target="#deleteSheetModal">Excluir</a>
                             @endif
                         </div>
                     </div>
@@ -32,6 +27,10 @@
         @endforeach
     </div>
 </div>
+@endsection
+
+@section('sheetCreate')
+<button data-bs-toggle="modal" data-bs-target="#novoPersonagemModal" class="btn btn-primary me-2">Criar</button>
 @endsection
 
 @section('modal')
@@ -65,14 +64,40 @@
         </div>
     </div>
 </div>
-@endsection
 
-@section('sheetCreate')
-<button data-bs-toggle="modal" data-bs-target="#novoPersonagemModal" class="btn btn-primary me-2">Criar</button>
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteSheetModal" tabindex="-1" aria-labelledby="deleteSheetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 id="deleteSheetModalLabel">Confirmação</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+                <p>Você tem certeza que deseja excluir essa ficha?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ route('sheet.destroy', ['ficha' => $ficha->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="text" name="ficha_id" id="ficha_id" hidden>
+                    <input type="submit" value="Sim" class="btn btn-primary">
+                </form>
+                <input type="button" value="Fechar" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
 <script>
-    
+    let deleteSheetModal = document.getElementById("deleteSheetModal");
+    deleteSheetModal.addEventListener("show.bs.modal", function(event) {
+        let trigger = event.relatedTarget;
+        let id = trigger.getAttribute("data-bs-ficha-id");
+        let ficha_id = deleteSheetModal.querySelector("#ficha_id");
+        ficha_id.value = id;
+    });
 </script>
 @endsection
