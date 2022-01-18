@@ -19,13 +19,20 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->role_as == 'admin') {
-                $fichas = Fichashitodama::all()->sortBy('nome');
+                $fichas = Fichashitodama::all()->sortByDesc('user_id');
+                $users = User::all();
+
+                return view('hitodama.dashboard', [
+                    'fichas' => $fichas,
+                    'users' => $users
+                ]);
             } else {
-                $fichas = User::where('id', Auth::id())->first()->fichas()->get();                
+                $fichas = User::where('id', Auth::id())->first()->fichas()->get(); 
+
+                return view('hitodama.dashboard', [
+                    'fichas' => $fichas
+                ]);               
             }
-            return view('hitodama.dashboard', [
-                'fichas' => $fichas
-            ]);
         }
 
         return redirect()->route('user.login');

@@ -16,13 +16,18 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'lucas',
-                'password' => '$2y$10$kc1Y6AGHsnYh72pAIjGONOpSXEHjCjMt1y1CuQ6/gGeBsGBO5sNzG',
+                'name' => 'admin',
+                'password' => '$2y$10$22f6rGwl0pb1NvUjNrW5b.NadqGfe0eBedbUUEbnlQPzjDJ8vqdJW',
                 'role_as' => 'admin'
             ],
             [
-                'name' => 'paraiso',
-                'password' => '$2y$10$qAUdWAynFGtpGDsTyZkm2.dPR7KB1l24DYh2G.JYX2nX3t/WqTyK6',
+                'name' => 'marcela',
+                'password' => '$2y$10$laJbhRFLubybc/pSjxdU8Ooznmf7qGXed2KT5.vGyF3tBqB/pWHK.',
+                'role_as' => 'user'
+            ],
+            [
+                'name' => 'pedro',
+                'password' => '$2y$10$JmBsOmWaBDM2jOg76ZCIIeEwdc1eRilYizp8n.Shw8TbG54BhZGry',
                 'role_as' => 'user'
             ]
         ]);

@@ -285,9 +285,8 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form id="personagemModalForm" action="{{ route('sheet.updateimage', ['ficha' => $ficha->id]) }}" method="post">
+                <form id="personagemModalForm">
                     @csrf
-                    @method('put')
                     <!-- FOTO PERSONAGEM -->
                     <label for="imagem_personagem" class="mb-1 fs-5">Link</label>
                     <input name="imagem_personagem" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -309,9 +308,8 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form id="dragaoModalForm" action="{{ route('sheet.updateimage', ['ficha' => $ficha->id]) }}" method="post">
+                <form id="dragaoModalForm">
                     @csrf
-                    @method('put')
                     <!-- FOTO DRAGAO -->
                     <label for="imagem_dragao" class="mb-1 fs-5">Link</label>
                     <input name="imagem_dragao" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -626,9 +624,9 @@
 <script>
     $('form[id="caminhoModalForm"]').submit(function(event) {
         event.preventDefault();
-
+    
         $.ajax({
-            url: "{{ route('sheet.caminho', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.caminho', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -643,7 +641,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.classe', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.classe', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -658,7 +656,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.heranca', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.heranca', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -673,7 +671,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.updatelife', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.updatelife', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -691,7 +689,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.updateawaken', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.updateawaken', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -709,7 +707,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.updatedragon', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.updatedragon', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -724,7 +722,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('sheet.updatearma', ['ficha' => $ficha->id]) }}",
+            url: "{{ route('hitodama.updatearma', ['fichashitodama' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -740,7 +738,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('soul.store') }}",
+            url: "{{ route('hitodama.soul.store') }}",
             type: "post",
             data: $(this).serialize(),
             dataType: "json",
@@ -754,7 +752,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('soul.update') }}",
+            url: "{{ route('hitodama.soul.update') }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -772,12 +770,40 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('soul.delete') }}",
+            url: "{{ route('hitodama.soul.delete') }}",
             type: "delete",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
                 $("#almaDelete" + response.alma_id).html("");
+            }
+        });
+    })
+
+    $('form[id="personagemModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('hitodama.updateimagecharacter', ['fichashitodama' => $ficha->id]) }}",
+            type: "put",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    })
+
+    $('form[id="dragaoModalForm"]').submit(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "{{ route('hitodama.updateimagedragon', ['fichashitodama' => $ficha->id]) }}",
+            type: "put",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
             }
         });
     })

@@ -37,30 +37,22 @@ class FichashitodamaController extends Controller
      */
     public function store(Request $request)
     {
-        $ficha = new Fichashitodama();
+        $fichashitodama = new Fichashitodama();
 
-        $ficha->nome = $request->nomeDashboard;
-        $ficha->user_id = Auth::id();
-        
-        if ($request->imagemPersonagemDashboard) {
-            $ficha->imagem_personagem = $request->imagemPersonagemDashboard;
-        }
+        $fichashitodama->nome = $request->nomeDashboard;
+        $fichashitodama->user_id = $request->userDashboard;
 
-        if ($request->imagemMiniDragaoDashboard) {
-            $ficha->imagem_dragao = $request->imagemMiniDragaoDashboard;
-        }
-
-        $ficha->save();
+        $fichashitodama->save();
         return redirect()->route('user.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Ficha  $ficha
+     * @param  \App\Models\Ficha  $fichashitodama
      * @return \Illuminate\Http\Response
      */
-    public function show(Fichashitodama $ficha)
+    public function show(Fichashitodama $fichashitodama)
     {
         if (Auth::check()) {
             $caminhos = DB::table('caminhos')->get();
@@ -71,22 +63,22 @@ class FichashitodamaController extends Controller
             $classe = null;
             $heranca = null;
 
-            if ($ficha->caminho_id) {
-                $caminho = DB::table('caminhos')->where('id', $ficha->caminho_id)->first();
+            if ($fichashitodama->caminho_id) {
+                $caminho = DB::table('caminhos')->where('id', $fichashitodama->caminho_id)->first();
             }
 
-            if ($ficha->classe_id) {
-                $classe = DB::table('classes')->where('id', $ficha->classe_id)->first();
+            if ($fichashitodama->classe_id) {
+                $classe = DB::table('classes')->where('id', $fichashitodama->classe_id)->first();
             }
 
-            if ($ficha->heranca_id) {
-                $heranca = DB::table('herancas')->where('id', $ficha->heranca_id)->first();
+            if ($fichashitodama->heranca_id) {
+                $heranca = DB::table('herancas')->where('id', $fichashitodama->heranca_id)->first();
             }
 
-            $almas = $ficha->almas()->get();
+            $almas = $fichashitodama->almas()->get();
 
             return view('hitodama.ficha', [
-                'ficha' => $ficha,
+                'ficha' => $fichashitodama,
                 'almas' => $almas,
 
                 'caminhos' => $caminhos,
@@ -105,10 +97,10 @@ class FichashitodamaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Ficha  $ficha
+     * @param  \App\Models\Ficha  $fichashitodama
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fichashitodama $ficha)
+    public function edit(Fichashitodama $fichashitodama)
     {
         //
     }
@@ -117,10 +109,10 @@ class FichashitodamaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ficha  $ficha
+     * @param  \App\Models\Ficha  $fichashitodama
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fichashitodama $ficha)
+    public function update(Request $request, Fichashitodama $fichashitodama)
     {
         //
     }
@@ -128,7 +120,7 @@ class FichashitodamaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Ficha  $ficha
+     * @param  \App\Models\Ficha  $fichashitodama
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
@@ -137,119 +129,124 @@ class FichashitodamaController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function caminho(Request $request, Fichashitodama $ficha)
+    public function caminho(Request $request, Fichashitodama $fichashitodama)
     {
-        $ficha->caminho_id = $request->caminho_id;
-        $ficha->save();
+        $fichashitodama->caminho_id = $request->caminho_id;
+        $fichashitodama->save();
 
         $caminho = DB::table('caminhos')->where('id', $request->caminho_id)->first();
 
         return json_encode($caminho);
     }
 
-    public function classe(Request $request, Fichashitodama $ficha)
+    public function classe(Request $request, Fichashitodama $fichashitodama)
     {
-        $ficha->classe_id = $request->classe_id;
-        $ficha->save();
+        $fichashitodama->classe_id = $request->classe_id;
+        $fichashitodama->save();
 
         $classe = DB::table('classes')->where('id', $request->classe_id)->first();
 
         return json_encode($classe);
     }
 
-    public function heranca(Request $request, Fichashitodama $ficha)
+    public function heranca(Request $request, Fichashitodama $fichashitodama)
     {
-        $ficha->heranca_id = $request->heranca_id;
-        $ficha->save();
+        $fichashitodama->heranca_id = $request->heranca_id;
+        $fichashitodama->save();
 
         $heranca = DB::table('herancas')->where('id', $request->heranca_id)->first();
 
         return json_encode($heranca);
     }
 
-    public function updatelife(Request $request, Fichashitodama $ficha)
+    public function updatelife(Request $request, Fichashitodama $fichashitodama)
     {
 
         if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
-            $ficha->vida_atual += $request->vida_atual;
+            $fichashitodama->vida_atual += $request->vida_atual;
         } else {
-            $ficha->vida_atual = $request->vida_atual;
+            $fichashitodama->vida_atual = $request->vida_atual;
         }
 
         if ($request->vida_max !== null) {
-            $ficha->vida_max = $request->vida_max;
+            $fichashitodama->vida_max = $request->vida_max;
         }
 
-        $ficha->save();
+        $fichashitodama->save();
 
         $response = [
-            'vida_atual' => $ficha->vida_atual,
-            'vida_max' => $ficha->vida_max
+            'vida_atual' => $fichashitodama->vida_atual,
+            'vida_max' => $fichashitodama->vida_max
         ];
 
         return json_encode($response);
     }
 
-    public function updateawaken(Request $request, Fichashitodama $ficha)
+    public function updateawaken(Request $request, Fichashitodama $fichashitodama)
     {
 
         if (str_contains($request->despertado_atual, '+') || str_contains($request->despertado_atual, '-')) {
-            $ficha->despertado_atual += $request->despertado_atual;
+            $fichashitodama->despertado_atual += $request->despertado_atual;
         } else {
-            $ficha->despertado_atual = $request->despertado_atual;
+            $fichashitodama->despertado_atual = $request->despertado_atual;
         }
 
         if ($request->despertado_max !== null) {
-            $ficha->despertado_max = $request->despertado_max;
+            $fichashitodama->despertado_max = $request->despertado_max;
         }
 
-        $ficha->save();
+        $fichashitodama->save();
 
         $response = [
-            'despertado_atual' => $ficha->despertado_atual,
-            'despertado_max' => $ficha->despertado_max
+            'despertado_atual' => $fichashitodama->despertado_atual,
+            'despertado_max' => $fichashitodama->despertado_max
         ];
 
         return json_encode($response);
     }
 
-    public function updateimage(Request $request, Fichashitodama $ficha)
+    public function updateImageCharacter(Request $request, Fichashitodama $fichashitodama)
     {
-        if ($request->imagem_personagem) {
-            $ficha->imagem_personagem = $request->imagem_personagem;
-            $ficha->save();
-            $response['imagem_personagem'] = $ficha->imagem_personagem;
-        } else if ($request->imagem_dragao) {
-            $ficha->imagem_dragao = $request->imagem_dragao;
-            $ficha->save();
-            $response['imagem_dragao'] = $ficha->imagem_dragao;
-        }
+        $fichashitodama->imagem_personagem = $request->imagem_personagem;
+        $fichashitodama->save();
 
-        return redirect()->route('sheet.show', ['ficha' => $ficha->id]);
-    }
-
-    public function updatedragon(Request $request, Fichashitodama $ficha)
-    {
-        $ficha->dragao_nome = $request->dragao_nome;
-        $ficha->dragao_elemento = $request->dragao_elemento;
-        $ficha->save();
-
-        $response['dragao_nome'] = $ficha->dragao_nome;
-        $response['dragao_elemento'] = $ficha->dragao_elemento;
+        $response['imagem_personagem'] = $request->imagem_personagem;
 
         return json_encode($response);
     }
 
-    public function updatearma(Request $request, Fichashitodama $ficha)
+    public function updateImageDragon(Request $request, Fichashitodama $fichashitodama)
     {
-        $ficha->arma_nome = $request->arma_nome;
-        $ficha->arma_dano = $request->arma_dano;
-        $ficha->arma_elemento = $request->arma_elemento;
-        $ficha->save();
+        $fichashitodama->imagem_dragao = $request->imagem_dragao;
+        $fichashitodama->save();
+        
+        $response['imagem_dragao'] = $request->imagem_dragao;
 
-        $response['arma_nome'] = $ficha->arma_nome;
-        $response['arma_dano'] = $ficha->arma_dano;
-        $response['arma_elemento'] = $ficha->arma_elemento;
+        return json_encode($response);
+    }
+
+    public function updatedragon(Request $request, Fichashitodama $fichashitodama)
+    {
+        $fichashitodama->dragao_nome = $request->dragao_nome;
+        $fichashitodama->dragao_elemento = $request->dragao_elemento;
+        $fichashitodama->save();
+
+        $response['dragao_nome'] = $fichashitodama->dragao_nome;
+        $response['dragao_elemento'] = $fichashitodama->dragao_elemento;
+
+        return json_encode($response);
+    }
+
+    public function updatearma(Request $request, Fichashitodama $fichashitodama)
+    {
+        $fichashitodama->arma_nome = $request->arma_nome;
+        $fichashitodama->arma_dano = $request->arma_dano;
+        $fichashitodama->arma_elemento = $request->arma_elemento;
+        $fichashitodama->save();
+
+        $response['arma_nome'] = $fichashitodama->arma_nome;
+        $response['arma_dano'] = $fichashitodama->arma_dano;
+        $response['arma_elemento'] = $fichashitodama->arma_elemento;
 
         return json_encode($response);
     }
