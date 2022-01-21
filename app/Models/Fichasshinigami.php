@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fichashitodama extends Model
+class Fichasshinigami extends Model
 {
     use HasFactory;
 
-    protected $table = 'fichashitodama';
+    protected $table = 'fichasshinigami';
 
     public function almas()
     {
-        return $this->hasMany(Alma::class, 'fichashitodama_id', 'id');
+        return $this->hasMany(Alma::class, 'fichasshinigami_id', 'id');
     }
 }

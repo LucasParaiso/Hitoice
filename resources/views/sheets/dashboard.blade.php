@@ -7,10 +7,10 @@
 @section('content')
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 p-3 m-3 justify-content-center fundo" id="showSheets">
-        @foreach($fichashitodama as $ficha)
+        @foreach($fichasshinigami as $ficha)
         <div class="col mb-4" id="{{ 'fichaHitodama' . $ficha->id }}">
             <div class="p-3 text-center fundo">
-                <a href="{{ route('hitodama.show', ['fichashitodama' => $ficha->id]) }}" class="mb-3">
+                <a href="{{ route('shinigami.show', ['fichasshinigami' => $ficha->id]) }}" class="mb-3">
                     <div class="card bg-dark border-1 border-light">
                         <img src="{{ $ficha->imagem_personagem }}" class="card-img-top img-fluid" alt="imagem_personagem">
                         <div class="card-body">
@@ -79,7 +79,7 @@
                     <!-- MODELO -->
                     <label for="tipoFichaDashboard" class="fs-5">Ficha</label>
                     <select name="tipoFichaDashboard" id="tipoFichaDashboard" class="col form-select bg-transparent text-center" style="color: white;">
-                        <option value="hitodama" style="color: black;">Hitodama</option>
+                        <option value="shinigami" style="color: black;">Shinigami</option>
                         <option value="generica" style="color: black;">Genérica</option>
                     </select>
                 </form>
@@ -103,7 +103,7 @@
                 <p>Você tem certeza que deseja excluir essa ficha?</p>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('hitodama.destroy', ['fichashitodama' => $ficha->id]) }}" method="post">
+                <form action="{{ route('shinigami.destroy', ['fichasshinigami' => $ficha->id]) }}" method="post">
                     @csrf
                     @method('delete')
                     <input type="text" name="ficha_id" id="ficha_id" hidden>
@@ -160,8 +160,8 @@
         event.preventDefault();
 
         switch ($("#tipoFichaDashboard").val()) {
-            case 'hitodama':
-                var url = "{{ route('hitodama.store') }}";
+            case 'shinigami':
+                var url = "{{ route('shinigami.store') }}";
                 break;
 
             case 'generica':

@@ -542,7 +542,7 @@
                     </div>
 
                     <!-- FICHA ID -->
-                    <input type="text" name="fichashitodama_id" id="fichashitodama_id" value="{{ $ficha->id }}" hidden>
+                    <input type="text" name="fichasshinigami_id" id="fichasshinigami_id" value="{{ $ficha->id }}" hidden>
                 </form>
             </div>
             <div class="modal-footer">
@@ -626,7 +626,7 @@
         event.preventDefault();
     
         $.ajax({
-            url: "{{ route('hitodama.caminho', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.caminho', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -641,7 +641,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.classe', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.classe', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -656,7 +656,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.heranca', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.heranca', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -671,7 +671,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updatelife', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updatelife', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -689,7 +689,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updateawaken', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updateawaken', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -707,7 +707,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updatedragon', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updatedragon', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -722,7 +722,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updatearma', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updatearma', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -738,7 +738,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.soul.store') }}",
+            url: "{{ route('shinigami.soul.store') }}",
             type: "post",
             data: $(this).serialize(),
             dataType: "json",
@@ -752,7 +752,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.soul.update') }}",
+            url: "{{ route('shinigami.soul.update') }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -770,7 +770,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.soul.delete') }}",
+            url: "{{ route('shinigami.soul.delete') }}",
             type: "delete",
             data: $(this).serialize(),
             dataType: "json",
@@ -784,7 +784,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updateimagecharacter', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updateimagecharacter', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",
@@ -798,7 +798,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "{{ route('hitodama.updateimagedragon', ['fichashitodama' => $ficha->id]) }}",
+            url: "{{ route('shinigami.updateimagedragon', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
             data: $(this).serialize(),
             dataType: "json",

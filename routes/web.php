@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AlmaController;
 use App\Http\Controllers\FichasgenericasController;
-use App\Http\Controllers\FichashitodamaController;
+use App\Http\Controllers\FichasshinigamiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -27,24 +27,29 @@ Route::resource('/usuario', UserController::class)
     ->parameters(['usuario' => 'user']);
 
 // FICHA HITODAMA
-Route::put('/hitodama/caminho/{fichashitodama}', [FichashitodamaController::class, 'caminho'])->name('hitodama.caminho');
-Route::put('/hitodama/classe/{fichashitodama}', [FichashitodamaController::class, 'classe'])->name('hitodama.classe');
-Route::put('/hitodama/heranca/{fichashitodama}', [FichashitodamaController::class, 'heranca'])->name('hitodama.heranca');
-Route::put('/hitodama/vida/{fichashitodama}', [FichashitodamaController::class, 'updatelife'])->name('hitodama.updatelife');
-Route::put('/hitodama/despertado/{fichashitodama}', [FichashitodamaController::class, 'updateawaken'])->name('hitodama.updateawaken');
-Route::put('/hitodama/imagem/character/{fichashitodama}', [FichashitodamaController::class, 'updateImageCharacter'])->name('hitodama.updateimagecharacter');
-Route::put('/hitodama/imagem/dragon/{fichashitodama}', [FichashitodamaController::class, 'updateImageDragon'])->name('hitodama.updateimagedragon');
-Route::put('/hitodama/dragao/{fichashitodama}', [FichashitodamaController::class, 'updatedragon'])->name('hitodama.updatedragon');
-Route::put('/hitodama/arma/{fichashitodama}', [FichashitodamaController::class, 'updatearma'])->name('hitodama.updatearma');
-Route::resource('/hitodama', FichashitodamaController::class)
-    ->names('hitodama')
-    ->parameters(['hitodama' => 'fichashitodama']);
+Route::put('/shinigami/caminho/{fichasshinigami}', [FichasshinigamiController::class, 'caminho'])->name('shinigami.caminho');
+Route::put('/shinigami/classe/{fichasshinigami}', [FichasshinigamiController::class, 'classe'])->name('shinigami.classe');
+Route::put('/shinigami/heranca/{fichasshinigami}', [FichasshinigamiController::class, 'heranca'])->name('shinigami.heranca');
+Route::put('/shinigami/vida/{fichasshinigami}', [FichasshinigamiController::class, 'updatelife'])->name('shinigami.updatelife');
+Route::put('/shinigami/despertado/{fichasshinigami}', [FichasshinigamiController::class, 'updateawaken'])->name('shinigami.updateawaken');
+Route::put('/shinigami/imagem/character/{fichasshinigami}', [FichasshinigamiController::class, 'updateImageCharacter'])->name('shinigami.updateimagecharacter');
+Route::put('/shinigami/imagem/dragon/{fichasshinigami}', [FichasshinigamiController::class, 'updateImageDragon'])->name('shinigami.updateimagedragon');
+Route::put('/shinigami/dragao/{fichasshinigami}', [FichasshinigamiController::class, 'updatedragon'])->name('shinigami.updatedragon');
+Route::put('/shinigami/arma/{fichasshinigami}', [FichasshinigamiController::class, 'updatearma'])->name('shinigami.updatearma');
+Route::resource('/shinigami', FichasshinigamiController::class)
+    ->names('shinigami')
+    ->parameters(['shinigami' => 'fichasshinigami']);
 
-Route::post('/hitodama/alma', [AlmaController::class, 'store'])->name('hitodama.soul.store');
-Route::put('/hitodama/alma/atualizar', [AlmaController::class, 'update'])->name('hitodama.soul.update');
-Route::delete('/hitodama/alma/deletar', [AlmaController::class, 'destroy'])->name('hitodama.soul.delete');
+Route::post('/shinigami/alma', [AlmaController::class, 'store'])->name('shinigami.soul.store');
+Route::put('/shinigami/alma/atualizar', [AlmaController::class, 'update'])->name('shinigami.soul.update');
+Route::delete('/shinigami/alma/deletar', [AlmaController::class, 'destroy'])->name('shinigami.soul.delete');
 
 // FICHA GENERICA
 Route::resource('/generica', FichasgenericasController::class)
     ->names('generica')
     ->parameters(['generica' => 'fichasgenerica']);
+
+// FICHA YOKAI
+Route::resource('/yokai', FichasgenericasController::class)
+    ->names('yokai')
+    ->parameters(['yokai' => 'fichasyokai']);

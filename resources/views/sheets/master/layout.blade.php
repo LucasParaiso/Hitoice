@@ -39,7 +39,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
-                <li class=" nav-item"><a class="nav-link" href="{{ route('/') }}">Lista de Personagens</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('/') }}">Lista de Personagens</a></li>
+                @if (Auth::user()->role_as == 'admin')
+                <li class="nav-item"><a class="nav-link" href="{{ route('yokai.index') }}">Lista de Yokais</a></li>
+                @endif
                 </ul>
                 <div>
                     @yield('sheetCreate')

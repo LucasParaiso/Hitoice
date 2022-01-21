@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class FichashitodamaTableSeeder extends Seeder
+class FichasshinigamiTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class FichashitodamaTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fichashitodama')->insert([
+        DB::table('fichasshinigami')->insert([
             [
                 'user_id' => '1',
                 'nome' => 'Bellatora Santana',

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\fichasgenericas;
-use App\Models\Fichashitodama;
+use App\Models\Fichasshinigami;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,22 +20,22 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             if (Auth::user()->role_as == 'admin') {
-                $fichashitodama = Fichashitodama::all()->sortByDesc('user_id');
+                $fichasshinigami = Fichasshinigami::all()->sortByDesc('user_id');
                 $fichasgenerica = fichasgenericas::all();
 
                 $users = User::all();
 
                 return view('sheets.dashboard', [
-                    'fichashitodama' => $fichashitodama,
+                    'fichasshinigami' => $fichasshinigami,
                     'fichasgenerica' => $fichasgenerica,
                     'users' => $users
                 ]);
             } else {
-                $fichashitodama = User::where('id', Auth::id())->first()->fichashitodama()->get();
+                $fichasshinigami = User::where('id', Auth::id())->first()->fichasshinigami()->get();
                 $fichasgenerica = User::where('id', Auth::id())->first()->fichasgenerica()->get();
 
                 return view('sheets.dashboard', [
-                    'fichashitodama' => $fichashitodama,
+                    'fichasshinigami' => $fichasshinigami,
                     'fichasgenerica' => $fichasgenerica,
                 ]);
             }
