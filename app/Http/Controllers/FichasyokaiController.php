@@ -14,7 +14,11 @@ class FichasyokaiController extends Controller
      */
     public function index()
     {
-        //
+        $fichasyokai = fichasyokai::all();
+
+        return view('sheets.yokai.dashboard', [
+            'fichasyokai' => $fichasyokai
+        ]);
     }
 
     /**
@@ -35,7 +39,17 @@ class FichasyokaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fichayokai = new fichasyokai();
+
+        $fichayokai->nome = $request->yokaiNome;
+
+        if ($request->imagemDashboard) {
+            $fichayokai->imagem_yokai = $request->imagemDashboard;
+        }
+
+        $fichayokai->save();
+
+        return redirect()->route('yokai.index');
     }
 
     /**
@@ -78,8 +92,9 @@ class FichasyokaiController extends Controller
      * @param  \App\Models\fichasyokai  $fichasyokai
      * @return \Illuminate\Http\Response
      */
-    public function destroy(fichasyokai $fichasyokai)
+    public function destroy(Request $request)
     {
-        //
+        fichasyokai::where('id', $request->ficha_id)->first()->delete();
+        return redirect()->route('yokai.index');
     }
 }

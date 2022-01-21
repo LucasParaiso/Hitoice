@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlmaController;
 use App\Http\Controllers\FichasgenericasController;
 use App\Http\Controllers\FichasshinigamiController;
+use App\Http\Controllers\FichasyokaiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -50,6 +51,6 @@ Route::resource('/generica', FichasgenericasController::class)
     ->parameters(['generica' => 'fichasgenerica']);
 
 // FICHA YOKAI
-Route::resource('/yokai', FichasgenericasController::class)
+Route::resource('/yokai', FichasyokaiController::class)
     ->names('yokai')
     ->parameters(['yokai' => 'fichasyokai']);
