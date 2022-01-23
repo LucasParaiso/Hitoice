@@ -104,9 +104,9 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Fichasgenericas $fichasgenerica)
     {
-        fichasgenericas::destroy($request->ficha_id);
+        Fichasgenericas::destroy($fichasgenerica->id);
 
         return redirect()->route('generica.index');
     }

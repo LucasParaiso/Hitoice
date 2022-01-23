@@ -47,6 +47,7 @@
                 </ul>
                 <div>
                     @yield('sheetCreate')
+                    @yield('sheetDelete')
                     <a href="{{ route('user.logout') }}" class="btn btn-danger me-1">Sair</a>
                 </div>
             </div>

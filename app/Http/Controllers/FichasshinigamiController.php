@@ -143,9 +143,9 @@ class FichasshinigamiController extends Controller
      * @param  \App\Models\Ficha  $fichasshinigami
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Fichasshinigami $fichasshinigami)
     {
-        Fichasshinigami::destroy($request->ficha_id);
+        Fichasshinigami::destroy($fichasshinigami->id);
         
         return redirect()->route('shinigami.index');
     }

@@ -29,8 +29,8 @@ class CreateFichasshinigamiTable extends Migration
             $table->foreignId('classe_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('heranca_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             
-            $table->string('arma_nome')->nullable();
-            $table->integer('arma_dano')->nullable();
+            $table->string('arma_nome')->default('Katana');
+            $table->integer('arma_dano')->default('2');
             $table->string('arma_elemento')->nullable();
 
             $table->string('dragao_nome')->nullable();

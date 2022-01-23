@@ -15,7 +15,6 @@
                         <img src="{{ $ficha->imagem_personagem }}" class="card-img-top img-fluid" alt="imagem_generica">
                         <div class="card-body">
                             <p>{{ $ficha->nome }}</p>
-                            <a class="btn btn-danger mb-2" data-bs-ficha-id="{{ $ficha->id }}" data-bs-toggle="modal" data-bs-target="#deleteSheetGenericaModal">Excluir</a>
                         </div>
                     </div>
                 </a>
@@ -57,41 +56,4 @@
         </div>
     </div>
 </div>
-
-<!-- DELETE MODAL GENERICA -->
-<div class="modal fade" id="deleteSheetGenericaModal" tabindex="-1" aria-labelledby="deleteSheetModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark">
-            <div class="modal-header">
-                <h5 id="deleteSheetModalLabel">Confirmação</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-start">
-                <p>Você tem certeza que deseja excluir essa ficha?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('generica.destroy', ['fichasgenerica' => 1]) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <input type="text" name="ficha_id" id="ficha_id" hidden>
-                    <input type="submit" value="Sim" class="btn btn-primary">
-                </form>
-                <input type="button" value="Fechar" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-
-@section('scripts')
-<script>
-    let deleteSheetModal = document.getElementById("deleteSheetGenericaModal");
-
-    deleteSheetModal.addEventListener("show.bs.modal", function(event) {
-        let trigger = event.relatedTarget;
-        let id = trigger.getAttribute("data-bs-ficha-id");
-        let ficha_id = deleteSheetModal.querySelector("#ficha_id");
-        ficha_id.value = id;
-    });
-</script>
 @endsection

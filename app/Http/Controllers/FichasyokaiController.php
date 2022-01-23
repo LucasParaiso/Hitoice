@@ -103,9 +103,9 @@ class FichasyokaiController extends Controller
      * @param  \App\Models\fichasyokai  $fichasyokai
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(fichasyokai $fichasyokai)
     {
-        fichasyokai::destroy($request->ficha_id);
+        fichasyokai::destroy($fichasyokai->id);
         
         return redirect()->route('yokai.index');
     }
