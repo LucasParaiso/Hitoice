@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\fichasyokai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FichasyokaiController extends Controller
 {
@@ -14,10 +15,14 @@ class FichasyokaiController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role_as !== 'admin') {
+            return redirect()->route('shinigami.index');
+        }
+
         $fichasyokai = fichasyokai::all();
 
         return view('sheets.yokai.dashboard', [
-            'fichasyokai' => $fichasyokai
+            'fichas' => $fichasyokai
         ]);
     }
 
@@ -60,7 +65,13 @@ class FichasyokaiController extends Controller
      */
     public function show(fichasyokai $fichasyokai)
     {
-        //
+        if (Auth::user()->role_as !== 'admin') {
+            return redirect()->route('shinigami.index');
+        }
+
+        return view('sheets.yokai.ficha', [
+            'ficha' => $fichasyokai
+        ]);
     }
 
     /**
@@ -94,7 +105,8 @@ class FichasyokaiController extends Controller
      */
     public function destroy(Request $request)
     {
-        fichasyokai::where('id', $request->ficha_id)->first()->delete();
+        fichasyokai::destroy($request->ficha_id);
+        
         return redirect()->route('yokai.index');
     }
 }

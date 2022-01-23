@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\fichasgenericas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FichasgenericasController extends Controller
 {
@@ -14,7 +15,15 @@ class FichasgenericasController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::user()->role_as !== 'admin') {
+            return redirect()->route('shinigami.index');
+        }
+
+        $fichasgenerica = fichasgenericas::all();
+
+        return view('sheets.generica.dashboard', [
+            'fichas' => $fichasgenerica
+        ]);
     }
 
     /**
@@ -37,13 +46,16 @@ class FichasgenericasController extends Controller
     {
         $fichasgenerica = new fichasgenericas();
 
-        $fichasgenerica->nome = $request->nomeDashboard;
-        $fichasgenerica->user_id = $request->userDashboard;
+        $fichasgenerica->nome = $request->genericaNome;
+        $fichasgenerica->user_id = Auth::id();
+
+        if ($request->imagemDashboard) {
+            $fichasgenerica->imagem_personagem = $request->imagemDashboard;
+        }
 
         $fichasgenerica->save();
 
-        $response['success'] = true;
-        return json_encode($response);
+        return redirect()->route('generica.index');
     }
 
     /**
@@ -54,6 +66,10 @@ class FichasgenericasController extends Controller
      */
     public function show(fichasgenericas $fichasgenerica)
     {
+        if (Auth::user()->role_as !== 'admin') {
+            return redirect()->route('shinigami.index');
+        }
+
         return view('sheets.generica.ficha', [
             'ficha' => $fichasgenerica
         ]);
@@ -90,7 +106,8 @@ class FichasgenericasController extends Controller
      */
     public function destroy(Request $request)
     {
-        fichasgenericas::where('id', $request->ficha_id)->first()->delete();
-        return redirect()->route('user.index');
+        fichasgenericas::destroy($request->ficha_id);
+
+        return redirect()->route('generica.index');
     }
 }

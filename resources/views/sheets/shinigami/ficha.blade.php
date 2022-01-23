@@ -285,8 +285,9 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form id="personagemModalForm">
+                <form id="personagemModalForm" action="{{ route('shinigami.updateimagecharacter', ['fichasshinigami' => $ficha->id]) }}" method="post">
                     @csrf
+                    @method('put')
                     <!-- FOTO PERSONAGEM -->
                     <label for="imagem_personagem" class="mb-1 fs-5">Link</label>
                     <input name="imagem_personagem" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -308,8 +309,9 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
-                <form id="dragaoModalForm">
+                <form id="dragaoModalForm" action="{{ route('shinigami.updateimagedragon', ['fichasshinigami' => $ficha->id]) }}" method="post">
                     @csrf
+                    @method('put')
                     <!-- FOTO DRAGAO -->
                     <label for="imagem_dragao" class="mb-1 fs-5">Link</label>
                     <input name="imagem_dragao" type="text" class="form-control mb-3 bg-transparent" style="color: white;" required>
@@ -776,34 +778,6 @@
             dataType: "json",
             success: function(response) {
                 $("#almaDelete" + response.alma_id).html("");
-            }
-        });
-    })
-
-    $('form[id="personagemModalForm"]').submit(function(event) {
-        event.preventDefault();
-
-        $.ajax({
-            url: "{{ route('shinigami.updateimagecharacter', ['fichasshinigami' => $ficha->id]) }}",
-            type: "put",
-            data: $(this).serialize(),
-            dataType: "json",
-            success: function(response) {
-                console.log(response);
-            }
-        });
-    })
-
-    $('form[id="dragaoModalForm"]').submit(function(event) {
-        event.preventDefault();
-
-        $.ajax({
-            url: "{{ route('shinigami.updateimagedragon', ['fichasshinigami' => $ficha->id]) }}",
-            type: "put",
-            data: $(this).serialize(),
-            dataType: "json",
-            success: function(response) {
-                console.log(response);
             }
         });
     })

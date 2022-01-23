@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fichasshinigami;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,21 @@ class FichasshinigamiController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::user()->role_as == 'admin') {
+            $fichasshinigami = Fichasshinigami::all()->sortByDesc('user_id');
+            $users = User::all();
+
+            return view('sheets.shinigami.dashboard', [
+                'fichasshinigami' => $fichasshinigami,
+                'users' => $users
+            ]);
+        } else {
+            $fichasshinigami = User::where('id', Auth::id())->first()->fichasshinigami()->get();
+
+            return view('sheets.shinigami.dashboard', [
+                'fichasshinigami' => $fichasshinigami
+            ]);
+        }
     }
 
     /**
@@ -42,10 +57,13 @@ class FichasshinigamiController extends Controller
         $fichasshinigami->nome = $request->nomeDashboard;
         $fichasshinigami->user_id = $request->userDashboard;
 
+        if ($request->imagemDashboard) {
+            $fichasshinigami->imagem_personagem = $request->imagemDashboard;
+        }
+
         $fichasshinigami->save();
 
-        $response['success'] = true;
-        return json_encode($response);
+        return redirect()->route('shinigami.index');
     }
 
     /**
@@ -127,8 +145,9 @@ class FichasshinigamiController extends Controller
      */
     public function destroy(Request $request)
     {
-        Fichasshinigami::where('id', $request->ficha_id)->first()->delete();
-        return redirect()->route('user.index');
+        Fichasshinigami::destroy($request->ficha_id);
+        
+        return redirect()->route('shinigami.index');
     }
 
     public function caminho(Request $request, Fichasshinigami $fichasshinigami)
@@ -212,19 +231,19 @@ class FichasshinigamiController extends Controller
         $fichasshinigami->imagem_personagem = $request->imagem_personagem;
         $fichasshinigami->save();
 
-        $response['imagem_personagem'] = $request->imagem_personagem;
-
-        return json_encode($response);
+        return redirect()->route('shinigami.show', [
+            'fichasshinigami' => $fichasshinigami->id
+        ]);
     }
 
     public function updateImageDragon(Request $request, Fichasshinigami $fichasshinigami)
     {
         $fichasshinigami->imagem_dragao = $request->imagem_dragao;
         $fichasshinigami->save();
-        
-        $response['imagem_dragao'] = $request->imagem_dragao;
 
-        return json_encode($response);
+        return redirect()->route('shinigami.show', [
+            'fichasshinigami' => $fichasshinigami->id
+        ]);
     }
 
     public function updatedragon(Request $request, Fichasshinigami $fichasshinigami)

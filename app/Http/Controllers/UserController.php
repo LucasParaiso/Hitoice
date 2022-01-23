@@ -19,26 +19,7 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            if (Auth::user()->role_as == 'admin') {
-                $fichasshinigami = Fichasshinigami::all()->sortByDesc('user_id');
-                $fichasgenerica = fichasgenericas::all();
-
-                $users = User::all();
-
-                return view('sheets.dashboard', [
-                    'fichasshinigami' => $fichasshinigami,
-                    'fichasgenerica' => $fichasgenerica,
-                    'users' => $users
-                ]);
-            } else {
-                $fichasshinigami = User::where('id', Auth::id())->first()->fichasshinigami()->get();
-                $fichasgenerica = User::where('id', Auth::id())->first()->fichasgenerica()->get();
-
-                return view('sheets.dashboard', [
-                    'fichasshinigami' => $fichasshinigami,
-                    'fichasgenerica' => $fichasgenerica,
-                ]);
-            }
+            return redirect()->route('shinigami.index');
         }
 
         return redirect()->route('user.login');

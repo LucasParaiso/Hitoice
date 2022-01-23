@@ -30,7 +30,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="https://www.youtube.com/watch?v=Jw21urW4zcI" target="_blank">
                 <img src="/img/Hitodama.png" alt="logo_hitoice" id="logo" class="d-inline-block align-text-top">
                 Hito-Ice
             </a>
@@ -39,9 +39,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
-                <li class="nav-item"><a class="nav-link" href="{{ route('/') }}">Lista de Personagens</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('shinigami.index') }}">Shinigamis</a></li>
                 @if (Auth::user()->role_as == 'admin')
-                <li class="nav-item"><a class="nav-link" href="{{ route('yokai.index') }}">Lista de Yokais</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('yokai.index') }}">Yokais</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('generica.index') }}">Genéricas</a></li>
                 @endif
                 </ul>
                 <div>
