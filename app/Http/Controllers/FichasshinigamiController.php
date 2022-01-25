@@ -74,7 +74,7 @@ class FichasshinigamiController extends Controller
      */
     public function show(Fichasshinigami $fichasshinigami)
     {
-        if (Auth::check()) {
+        if ((Auth::id() == $fichasshinigami->user_id) || $fichasshinigami->role_as == 'admin') {
             $caminhos = DB::table('caminhos')->get();
             $classes = DB::table('classes')->get();
             $herancas = DB::table('herancas')->get();
