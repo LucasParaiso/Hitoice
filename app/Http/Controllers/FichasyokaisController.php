@@ -6,7 +6,7 @@ use App\Models\Fichasyokai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FichasyokaiController extends Controller
+class FichasyokaisController extends Controller
 {
     /**
      * Display a listing of the resource.

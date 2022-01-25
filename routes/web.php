@@ -3,7 +3,7 @@
 use App\Http\Controllers\AlmaController;
 use App\Http\Controllers\FichasgenericasController;
 use App\Http\Controllers\FichasshinigamiController;
-use App\Http\Controllers\FichasyokaiController;
+use App\Http\Controllers\FichasyokaisController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -55,9 +55,9 @@ Route::resource('/generica', FichasgenericasController::class)
     ->parameters(['generica' => 'fichasgenerica']);
 
 // FICHA YOKAI
-Route::put('/yokai/vida/{fichasyokai}', [FichasyokaiController::class, 'updateLife'])->name('yokai.updatelife');
-Route::put('/yokai/imagem/{fichasyokai}', [FichasyokaiController::class, 'updateImage'])->name('yokai.updateimage');
-Route::put('/yokai/descricao/{fichasyokai}', [FichasyokaiController::class, 'updateDescription'])->name('yokai.updatedescription');
-Route::resource('/yokai', FichasyokaiController::class)
+Route::put('/yokai/vida/{fichasyokai}', [FichasyokaisController::class, 'updateLife'])->name('yokai.updatelife');
+Route::put('/yokai/imagem/{fichasyokai}', [FichasyokaisController::class, 'updateImage'])->name('yokai.updateimage');
+Route::put('/yokai/descricao/{fichasyokai}', [FichasyokaisController::class, 'updateDescription'])->name('yokai.updatedescription');
+Route::resource('/yokai', FichasyokaisController::class)
     ->names('yokai')
     ->parameters(['yokai' => 'fichasyokai']);
