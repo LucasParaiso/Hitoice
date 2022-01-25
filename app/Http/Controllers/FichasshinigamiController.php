@@ -17,7 +17,7 @@ class FichasshinigamiController extends Controller
      */
     public function index()
     {
-        if (User::where('id', Auth::id())->first()->role_as !== 'admin') {
+        if (Auth::user()->role_as !== 'admin') {
             $fichasshinigami = User::where('id', Auth::id())->first()->fichasshinigami()->get();
 
             return view('sheets.shinigami.dashboard', [
