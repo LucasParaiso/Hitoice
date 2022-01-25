@@ -593,7 +593,7 @@
                         <div class="row justify-content-between">
                             <label class="col col-form-label" for="propriedade">Propriedade: </label>
                             <div class="col">
-                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="propriedade" id="propriedade" required>
+                                <input class="form-control bg-transparent text-center" type="text" style="color: white;" name="propriedade" id="propriedade">
                             </div>
                         </div>
                     </div>

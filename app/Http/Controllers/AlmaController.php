@@ -40,12 +40,12 @@ class AlmaController extends Controller
     {
         $alma = Alma::where('id', $request->alma_id)->first();
         $alma->tipo = $request->tipo;
-        $alma->propriedade = $request->propriedade;
+        $alma->propriedade = ($request->propriedade) ? $request->propriedade : "";
         $alma->save();
         
-        $response['alma_id'] = $request->alma_id;
-        $response['tipo'] = $request->tipo;
-        $response['propriedade'] = $request->propriedade;
+        $response['alma_id'] = $alma->alma_id;
+        $response['tipo'] = $alma->tipo;
+        $response['propriedade'] = $alma->propriedade;
 
         return json_encode($response);
     }
