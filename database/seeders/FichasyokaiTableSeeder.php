@@ -17,11 +17,11 @@ class FichasyokaiTableSeeder extends Seeder
         DB::table('fichasyokai')->insert([
             [
                 'nome' => 'Salomão Lunaire',
-                'imagem_yokai' => 'https://cdn.discordapp.com/attachments/763432460570329150/933974552608911360/Salomao.jpg'
+                'imagem_yokai' => 'https://cdn.discordapp.com/attachments/763432460570329150/918396272371703838/NeridaFormaFeroz.png'
             ],
             [
                 'nome' => 'Rubens Varejo',
-                'imagem_yokai' => 'https://cdn.discordapp.com/attachments/763432460570329150/933974552608911360/Salomao.jpg'
+                'imagem_yokai' => 'https://cdn.discordapp.com/attachments/763432460570329150/918396272371703838/NeridaFormaFeroz.png'
             ],
         ]);
     }

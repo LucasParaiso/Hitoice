@@ -18,14 +18,23 @@ class CreateFichasyokaiTable extends Migration
             
             $table->string('nome');
             $table->string('imagem_yokai')->default('/img/Hitodama.jpg');
-            $table->integer('vida_atual')->default(0);
-            $table->integer('vida_max')->default(0);
-            $table->integer('dano')->default(0);
-            $table->string('elemento')->nullable();
-            $table->string('essência_roubada')->nullable();
-            $table->string('habilidade_sobrenatural')->nullable();
-            $table->string('cla')->nullable();
-            $table->string('tipo')->nullable();
+            $table->integer('vida_atual')->default(1);
+            $table->integer('vida_max')->default(1);
+            $table->text('descricao')->default('<--- INFORMAÇÕES YOKAI --->
+Clã Yokai: 
+Tipo do Yokai: 
+
+<--- ATAQUE --->
+Nome: 
+Dano: 
+Elemento: 
+
+<--- HABILIDADE SOBRENATURAL --->
+Nome: 
+Descrição: 
+
+<--- ESSÊNCIA ROUBADA --->
+Elemento: ');
 
             $table->timestamps();
         });

@@ -106,7 +106,49 @@ class FichasyokaiController extends Controller
     public function destroy(fichasyokai $fichasyokai)
     {
         fichasyokai::destroy($fichasyokai->id);
-        
+
         return redirect()->route('yokai.index');
+    }
+
+    public function updateLife(Request $request, Fichasyokai $fichasyokai)
+    {
+
+        if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
+            $fichasyokai->vida_atual += $request->vida_atual;
+        } else {
+            $fichasyokai->vida_atual = $request->vida_atual;
+        }
+
+        if ($request->vida_max !== null) {
+            $fichasyokai->vida_max = $request->vida_max;
+        }
+
+        $fichasyokai->save();
+
+        $response = [
+            'vida_atual' => $fichasyokai->vida_atual,
+            'vida_max' => $fichasyokai->vida_max
+        ];
+
+        return json_encode($response);
+    }
+
+    public function updateImage(Request $request, Fichasyokai $fichasyokai)
+    {
+        $fichasyokai->imagem_yokai = $request->imagem_yokai;
+        $fichasyokai->save();
+
+        return redirect()->route('yokai.show', [
+            'fichasyokai' => $fichasyokai->id
+        ]);
+    }
+
+    public function updatedescription(Request $request, Fichasyokai $fichasyokai)
+    {
+        $fichasyokai->descricao = $request->descricao;
+        $fichasyokai->save();
+
+        $response['descricao'] = $request->descricao;
+        return json_encode($response);
     }
 }

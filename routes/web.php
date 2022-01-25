@@ -55,6 +55,9 @@ Route::resource('/generica', FichasgenericasController::class)
     ->parameters(['generica' => 'fichasgenerica']);
 
 // FICHA YOKAI
+Route::put('/yokai/vida/{fichasyokai}', [FichasyokaiController::class, 'updateLife'])->name('yokai.updatelife');
+Route::put('/yokai/imagem/{fichasyokai}', [FichasyokaiController::class, 'updateImage'])->name('yokai.updateimage');
+Route::put('/yokai/descricao/{fichasyokai}', [FichasyokaiController::class, 'updateDescription'])->name('yokai.updatedescription');
 Route::resource('/yokai', FichasyokaiController::class)
     ->names('yokai')
     ->parameters(['yokai' => 'fichasyokai']);
