@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fichasgenericas;
+use App\Models\Fichasgenerica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class FichasgenericasController extends Controller
             return redirect()->route('shinigami.index');
         }
 
-        $fichasgenerica = Fichasgenericas::all();
+        $fichasgenerica = Fichasgenerica::all();
 
         return view('sheets.generica.dashboard', [
             'fichas' => $fichasgenerica
@@ -44,7 +44,7 @@ class FichasgenericasController extends Controller
      */
     public function store(Request $request)
     {
-        $fichasgenerica = new Fichasgenericas();
+        $fichasgenerica = new Fichasgenerica();
 
         $fichasgenerica->nome = $request->genericaNome;
         $fichasgenerica->user_id = Auth::id();
@@ -64,7 +64,7 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function show(fichasgenericas $fichasgenerica)
+    public function show(Fichasgenerica $fichasgenerica)
     {
         if (Auth::user()->role_as !== 'admin') {
             return redirect()->route('shinigami.index');
@@ -81,7 +81,7 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function edit(fichasgenericas $fichasgenerica)
+    public function edit(Fichasgenerica $fichasgenerica)
     {
         //
     }
@@ -93,7 +93,7 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fichasgenericas $fichasgenerica)
+    public function update(Request $request, Fichasgenerica $fichasgenerica)
     {
         //
     }
@@ -104,14 +104,14 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fichasgenericas $fichasgenerica)
+    public function destroy(Fichasgenerica $fichasgenerica)
     {
-        Fichasgenericas::destroy($fichasgenerica->id);
+        Fichasgenerica::destroy($fichasgenerica->id);
 
         return redirect()->route('generica.index');
     }
 
-    public function updateLife(Request $request, Fichasgenericas $fichasgenerica)
+    public function updateLife(Request $request, Fichasgenerica $fichasgenerica)
     {
 
         if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
@@ -134,7 +134,7 @@ class FichasgenericasController extends Controller
         return json_encode($response);
     }
 
-    public function updateImage(Request $request, Fichasgenericas $fichasgenerica)
+    public function updateImage(Request $request, Fichasgenerica $fichasgenerica)
     {
         $fichasgenerica->imagem_personagem = $request->imagem_personagem;
         $fichasgenerica->save();
@@ -144,7 +144,7 @@ class FichasgenericasController extends Controller
         ]);
     }
 
-    public function updatedescription(Request $request, Fichasgenericas $fichasgenerica)
+    public function updatedescription(Request $request, Fichasgenerica $fichasgenerica)
     {
         $fichasgenerica->descricao = $request->descricao;
         $fichasgenerica->save();

@@ -17,21 +17,21 @@ class FichasshinigamiController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role_as == 'admin') {
-            $fichasshinigami = Fichasshinigami::all()->sortByDesc('user_id');
-            $users = User::all();
-
-            return view('sheets.shinigami.dashboard', [
-                'fichasshinigami' => $fichasshinigami,
-                'users' => $users
-            ]);
-        } else {
+        if (Auth::user()->role_as !== 'admin') {
             $fichasshinigami = User::where('id', Auth::id())->first()->fichasshinigami()->get();
 
             return view('sheets.shinigami.dashboard', [
                 'fichasshinigami' => $fichasshinigami
             ]);
         }
+
+        $fichasshinigami = Fichasshinigami::all()->sortByDesc('user_id');
+        $users = User::all();
+
+        return view('sheets.shinigami.dashboard', [
+            'fichasshinigami' => $fichasshinigami,
+            'users' => $users
+        ]);
     }
 
     /**
@@ -146,7 +146,7 @@ class FichasshinigamiController extends Controller
     public function destroy(Fichasshinigami $fichasshinigami)
     {
         Fichasshinigami::destroy($fichasshinigami->id);
-        
+
         return redirect()->route('shinigami.index');
     }
 
