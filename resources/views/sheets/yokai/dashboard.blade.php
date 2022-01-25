@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-4 p-3 m-3 justify-content-center fundo" id="showSheets">
         @foreach($fichas as $ficha)
-        <div class="col mb-4" id="{{ 'fichaYokai' . $ficha->id }}">
+        <div class="col my-2" id="{{ 'fichaYokai' . $ficha->id }}">
             <div class="p-3 text-center fundo">
                 <a href="{{ route('yokai.show', ['fichasyokai' => $ficha->id]) }}" class="mb-3">
                     <div class="card bg-dark border-1 border-light">

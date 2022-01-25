@@ -110,4 +110,46 @@ class FichasgenericasController extends Controller
 
         return redirect()->route('generica.index');
     }
+
+    public function updateLife(Request $request, Fichasgenericas $fichasgenerica)
+    {
+
+        if (str_contains($request->vida_atual, '+') || str_contains($request->vida_atual, '-')) {
+            $fichasgenerica->vida_atual += $request->vida_atual;
+        } else {
+            $fichasgenerica->vida_atual = $request->vida_atual;
+        }
+
+        if ($request->vida_max !== null) {
+            $fichasgenerica->vida_max = $request->vida_max;
+        }
+
+        $fichasgenerica->save();
+
+        $response = [
+            'vida_atual' => $fichasgenerica->vida_atual,
+            'vida_max' => $fichasgenerica->vida_max
+        ];
+
+        return json_encode($response);
+    }
+
+    public function updateImage(Request $request, Fichasgenericas $fichasgenerica)
+    {
+        $fichasgenerica->imagem_personagem = $request->imagem_personagem;
+        $fichasgenerica->save();
+
+        return redirect()->route('generica.show', [
+            'fichasgenerica' => $fichasgenerica->id
+        ]);
+    }
+
+    public function updatedescription(Request $request, Fichasgenericas $fichasgenerica)
+    {
+        $fichasgenerica->descricao = $request->descricao;
+        $fichasgenerica->save();
+
+        $response['descricao'] = $request->descricao;
+        return json_encode($response);
+    }
 }

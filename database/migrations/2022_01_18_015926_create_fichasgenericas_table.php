@@ -20,6 +20,7 @@ class CreateFichasgenericasTable extends Migration
             $table->string('nome');
             $table->integer('vida_atual')->default(10);
             $table->integer('vida_max')->default(10);
+            $table->text('descricao')->nullable();
             $table->string('imagem_personagem')->default('/img/Hitodama.jpg');
 
             $table->timestamps();

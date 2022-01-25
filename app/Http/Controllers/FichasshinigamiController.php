@@ -271,4 +271,13 @@ class FichasshinigamiController extends Controller
 
         return json_encode($response);
     }
+
+    public function updateDescription(Request $request, Fichasshinigami $fichasshinigami)
+    {
+        $fichasshinigami->descricao = $request->descricao;
+        $fichasshinigami->save();
+
+        $response['descricao'] = $request->descricao;
+        return json_encode($response);
+    }
 }

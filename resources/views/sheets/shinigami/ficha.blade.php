@@ -16,9 +16,9 @@
 </header>
 
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
+    <div class="row">
         <!-- VIDA -->
-        <div class="col mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <div class="p-3 m-2 text-center fundo">
                 <!-- FOTO -->
                 <div class="row">
@@ -101,68 +101,15 @@
             </div>
         </div>
 
-        <!-- CLASSE -->
-        <div class="col mb-3">
-            <div class='p-3 m-2 text-start fundo'>
-                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#classeModal" style="cursor: pointer;">
-                    <h2 class="fs-2">Classe</h2>
-                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
-                </div>
-                <h3 class="fs-4 mb-1" id="classeTitulo">
-                    @if ($ficha->classe_id)
-                    {{ $classes[$ficha->classe_id - 1]->titulo }}
-                    @endif
-                </h3>
-                <p id="classeDescricao">
-                    @if ($ficha->classe_id)
-                    {{ $classes[$ficha->classe_id - 1]->descricao }}
-                    @endif
-                </p>
-            </div>
-        </div>
-
-        <!-- HERANCA -->
-        <div class="col mb-3">
-            <div class='p-3 m-2 text-start fundo'>
-                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#herancaModal" style="cursor: pointer;">
-                    <h2 class="fs-2">Herança dos Kami</h2>
-                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
-                </div>
-                <h3 class="fs-4 mb-1" id="herancaTitulo">
-                    @if ($heranca)
-                    {{ $heranca->titulo }}
-                    @endif
-                </h3>
-                <p id="herancaDescricao">
-                    @if ($heranca)
-                    <?php echo $heranca->descricao; ?>
-                    @endif
-                </p>
-            </div>
-        </div>
-
-        <!-- CAMINHO DA KATANA -->
-        <div class="col mb-3">
-            <div class='p-3 m-2 text-start fundo'>
-                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#caminhoModal" style="cursor: pointer;">
-                    <h2 class="fs-2">Caminho da Katana</h2>
-                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
-                </div>
-                <h3 class="fs-4 mb-1" id="caminhoTitulo">
-                    @if ($caminho)
-                    {{ $caminho->titulo }}
-                    @endif
-                </h3>
-                <p id="caminhoDescricao">
-                    @if ($caminho)
-                    <?php echo $caminho->descricao; ?>
-                    @endif
-                </p>
+        <!-- DESCRICAO -->
+        <div class="col-12 col-md-6 mb-3">
+            <div class="p-3 m-2 text-center fundo">
+                <textarea class="form-control" id="sheetDescription" rows="19">{{ $ficha->descricao }}</textarea>
             </div>
         </div>
 
         <!-- EQUIPAMENTO -->
-        <div class="col mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <div class='p-3 m-2 fundo'>
                 <h2 class="fs-2 p-3 mb-3">Equipamento</h2>
 
@@ -211,7 +158,7 @@
         </div>
 
         <!-- ALMAS -->
-        <div class="col mb-3">
+        <div class="col-12 col-md-6 mb-3">
             <div class='p-3 m-2 fundo'>
                 <div class="d-flex p-3 mb-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#almaModalCreate" style="cursor: pointer;">
                     <h2 class="fs-2">Almas</h2>
@@ -236,6 +183,66 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- CLASSE -->
+        <div class="col-12 col-md-6 mb-3">
+            <div class='p-3 m-2 text-start fundo'>
+                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#classeModal" style="cursor: pointer;">
+                    <h2 class="fs-2">Classe</h2>
+                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
+                </div>
+                <h3 class="fs-4 mb-1" id="classeTitulo">
+                    @if ($ficha->classe_id)
+                    {{ $classes[$ficha->classe_id - 1]->titulo }}
+                    @endif
+                </h3>
+                <p id="classeDescricao">
+                    @if ($ficha->classe_id)
+                    {{ $classes[$ficha->classe_id - 1]->descricao }}
+                    @endif
+                </p>
+            </div>
+        </div>
+
+        <!-- CAMINHO DA KATANA -->
+        <div class="col-12 col-md-6 mb-3">
+            <div class='p-3 m-2 text-start fundo'>
+                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#caminhoModal" style="cursor: pointer;">
+                    <h2 class="fs-2">Caminho da Katana</h2>
+                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
+                </div>
+                <h3 class="fs-4 mb-1" id="caminhoTitulo">
+                    @if ($caminho)
+                    {{ $caminho->titulo }}
+                    @endif
+                </h3>
+                <p id="caminhoDescricao">
+                    @if ($caminho)
+                    <?php echo $caminho->descricao; ?>
+                    @endif
+                </p>
+            </div>
+        </div>
+
+        <!-- HERANCA -->
+        <div class="col-12 mb-3">
+            <div class='p-3 m-2 text-start fundo'>
+                <div class="d-flex justify-content-center p-3 mb-3" data-bs-toggle="modal" data-bs-target="#herancaModal" style="cursor: pointer;">
+                    <h2 class="fs-2">Herança dos Kami</h2>
+                    <ion-icon class="ms-2" name="create-outline" size="large"></ion-icon>
+                </div>
+                <h3 class="fs-4 mb-1" id="herancaTitulo">
+                    @if ($heranca)
+                    {{ $heranca->titulo }}
+                    @endif
+                </h3>
+                <p id="herancaDescricao">
+                    @if ($heranca)
+                    <?php echo $heranca->descricao; ?>
+                    @endif
+                </p>
             </div>
         </div>
     </div>
@@ -657,7 +664,7 @@
 <script>
     $('form[id="caminhoModalForm"]').submit(function(event) {
         event.preventDefault();
-    
+
         $.ajax({
             url: "{{ route('shinigami.caminho', ['fichasshinigami' => $ficha->id]) }}",
             type: "put",
@@ -809,6 +816,28 @@
             dataType: "json",
             success: function(response) {
                 $("#almaDelete" + response.alma_id).html("");
+            }
+        });
+    })
+
+    $('#sheetDescription').change(function() {
+        let descricao = document.getElementById('sheetDescription').value
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('shinigami.updatedescription', ['fichasshinigami' => $ficha->id]) }}",
+            type: "put",
+            data: {
+                'descricao': descricao
+            },
+            dataType: "json",
+            success: function(response) {
+                $('#sheetDescription').text(response.descricao);
             }
         });
     })

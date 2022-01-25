@@ -24,11 +24,12 @@ class CreateFichasshinigamiTable extends Migration
             $table->integer('despertado_max')->default(3);
             $table->string('imagem_personagem')->default('/img/Hitodama.jpg');
             $table->string('imagem_dragao')->default('/img/Hitodama.jpg');
-            
+            $table->text('descricao')->nullable();
+
             $table->foreignId('caminho_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('classe_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('heranca_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-            
+
             $table->string('arma_nome')->default('Katana');
             $table->integer('arma_dano')->default('2');
             $table->string('arma_elemento')->nullable();
