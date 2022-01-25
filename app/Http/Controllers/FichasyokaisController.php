@@ -15,7 +15,7 @@ class FichasyokaisController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role_as !== 'admin') {
+        if (Auth::user()->role_as == 'user') {
             return redirect()->route('shinigami.index');
         }
 
