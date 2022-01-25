@@ -43,7 +43,7 @@ class AlmaController extends Controller
         $alma->propriedade = ($request->propriedade) ? $request->propriedade : "";
         $alma->save();
         
-        $response['alma_id'] = $alma->alma_id;
+        $response['alma_id'] = $alma->id;
         $response['tipo'] = $alma->tipo;
         $response['propriedade'] = $alma->propriedade;
 
