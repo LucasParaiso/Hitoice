@@ -74,7 +74,7 @@ class FichasshinigamiController extends Controller
      */
     public function show(Fichasshinigami $fichasshinigami)
     {
-        if ((Auth::id() == $fichasshinigami->user_id) || $fichasshinigami->role_as == 'admin') {
+        if ((Auth::id() == $fichasshinigami->user_id) || (Auth::user()->role_as == 'admin')) {
             $caminhos = DB::table('caminhos')->get();
             $classes = DB::table('classes')->get();
             $herancas = DB::table('herancas')->get();
@@ -111,7 +111,7 @@ class FichasshinigamiController extends Controller
             ]);
         }
 
-        return redirect()->route('user.login');
+        return redirect()->route('shinigami.index');
     }
 
     /**
