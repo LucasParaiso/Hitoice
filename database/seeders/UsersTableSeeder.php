@@ -19,16 +19,6 @@ class UsersTableSeeder extends Seeder
                 'name' => 'admin',
                 'password' => '$2y$10$22f6rGwl0pb1NvUjNrW5b.NadqGfe0eBedbUUEbnlQPzjDJ8vqdJW',
                 'role_as' => 'admin'
-            ],
-            [
-                'name' => 'marcela',
-                'password' => '$2y$10$laJbhRFLubybc/pSjxdU8Ooznmf7qGXed2KT5.vGyF3tBqB/pWHK.',
-                'role_as' => 'user'
-            ],
-            [
-                'name' => 'pedro',
-                'password' => '$2y$10$JmBsOmWaBDM2jOg76ZCIIeEwdc1eRilYizp8n.Shw8TbG54BhZGry',
-                'role_as' => 'user'
             ]
         ]);
     }
