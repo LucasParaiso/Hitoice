@@ -159,30 +159,32 @@
 
         <!-- ALMAS -->
         <div class="col-12 col-md-6 mb-3">
-            <div class='p-3 m-2 fundo'>
+            <div class="p-3 m-2 fundo">
                 <div class="d-flex p-3 mb-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#almaModalCreate" style="cursor: pointer;">
                     <h2 class="fs-2">Almas</h2>
                     <ion-icon name="add-outline" size="large"></ion-icon>
                 </div>
-                <table class="table caption-top">
-                    <thead class="border-bottom border-2">
-                        <tr>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Propriedade</th>
-                        </tr>
-                    </thead>
-                    <tbody id="almasTable">
-                        @foreach($almas as $alma)
-                        <tr id="{{ 'almaDelete' . $alma->id }}">
-                            <td data-bs-toggle="modal" data-bs-target="#almaModalUpdate" data-bs-alma="{{ $alma->id }}" data-bs-tipo="{{ $alma->tipo }}" data-bs-propriedade="{{ $alma->propriedade }}" style="cursor: pointer;" class="d-flex justify-content-center" id="{{ 'data-bs' . $alma->id }}">
-                                <p id="{{ 'tipo' . $alma->id }}">{{ $alma->tipo }}</p>
-                                <ion-icon class="ms-1" name="create-outline" size="small"></ion-icon>
-                            </td>
-                            <td id="{{ 'propriedade' . $alma->id }}">{{ $alma->propriedade }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="overflow-auto" style="height: 300px;">
+                    <table class="table caption-top">
+                        <thead class="border-bottom border-2">
+                            <tr>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Propriedade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="almasTable">
+                            @foreach($almas as $alma)
+                            <tr id="{{ 'almaDelete' . $alma->id }}">
+                                <td data-bs-toggle="modal" data-bs-target="#almaModalUpdate" data-bs-alma="{{ $alma->id }}" data-bs-tipo="{{ $alma->tipo }}" data-bs-propriedade="{{ $alma->propriedade }}" style="cursor: pointer;" class="d-flex justify-content-center" id="{{ 'data-bs' . $alma->id }}">
+                                    <p id="{{ 'tipo' . $alma->id }}">{{ $alma->tipo }}</p>
+                                    <ion-icon class="ms-1" name="create-outline" size="small"></ion-icon>
+                                </td>
+                                <td id="{{ 'propriedade' . $alma->id }}">{{ $alma->propriedade }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
