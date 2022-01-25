@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\fichasgenericas;
+use App\Models\Fichasgenericas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class FichasgenericasController extends Controller
             return redirect()->route('shinigami.index');
         }
 
-        $fichasgenerica = fichasgenericas::all();
+        $fichasgenerica = Fichasgenericas::all();
 
         return view('sheets.generica.dashboard', [
             'fichas' => $fichasgenerica
@@ -44,7 +44,7 @@ class FichasgenericasController extends Controller
      */
     public function store(Request $request)
     {
-        $fichasgenerica = new fichasgenericas();
+        $fichasgenerica = new Fichasgenericas();
 
         $fichasgenerica->nome = $request->genericaNome;
         $fichasgenerica->user_id = Auth::id();
@@ -93,7 +93,7 @@ class FichasgenericasController extends Controller
      * @param  \App\Models\fichasgenerica  $fichasgenerica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, fichasgenericas $fichasgenerica)
+    public function update(Request $request, Fichasgenericas $fichasgenerica)
     {
         //
     }

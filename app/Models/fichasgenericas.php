@@ -9,5 +9,5 @@ class Fichasgenericas extends Model
 {
     use HasFactory;
 
-    protected $table = 'Fichasgenericas';
+    protected $table = 'fichasgenericas';
 }

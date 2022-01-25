@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\fichasgenericas;
-use App\Models\Fichasshinigami;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
