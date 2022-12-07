@@ -1,10 +1,6 @@
 # Hitoice
 Hitoice é um projeto Fullstack cujo propósito é criar um site para organizar e automatizar a ficha de rpg do sistema Hitodama
 
-Para ver um exemplo prático da ficha de um shinigami basta entrar no site http://hitoice.herokuapp.com e acessar a conta:
-* Usuário: teste
-* Senha: 123
-
 # Ferramentas
 * Laravel
 * Bootstrap
